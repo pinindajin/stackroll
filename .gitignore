@@ -1,13 +1,17 @@
 #client
-client/node_modules
+app/client/node_modules
+app/client/dist
+app/client/test/unit/coverage
+app/client/test/e2e/reports
+
 
 # server
-server/node_modules
-server/dist
-server/tmp
-server/out-tsc
-server/e2e/*.js
-server/e2e/*.map
+app/server/node_modules
+app/server/dist
+app/server/tmp
+app/server/out-tsc
+app/server/e2e/*.js
+app/server/e2e/*.map
 
 # IDEs and editors
 /.idea
