@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsInt } from 'class-validator';
 
 export class CreateGameDto {
   @IsNotEmpty()
@@ -6,4 +6,8 @@ export class CreateGameDto {
   readonly name: string;
 
   @IsString() readonly description: string;
+}
+
+export class CreateGameRequest {
+  dtos: Array<CreateGameDto>;
 }

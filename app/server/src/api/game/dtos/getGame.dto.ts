@@ -1,7 +1,13 @@
-import { IsUUID, IsNotEmpty } from 'class-validator';
+import { IsUUID, IsNotEmpty, IsInt } from 'class-validator';
+import { PagedRequest } from '../../../common/models/PagedRequest.m';
 
 export class GetGameDto {
-  @IsUUID()
-  @IsNotEmpty()
-  readonly id: Array<string>;
+  @IsUUID('5', { each: true })
+  ids: Array<string>;
+}
+
+export class GetGameRequest implements PagedRequest {
+  @IsInt() pageSize: number;
+  @IsInt() pageOffset: number;
+  dto: GetGameDto;
 }
