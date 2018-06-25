@@ -20,6 +20,7 @@
     "@nestjs/common": "^5.0.0",
     "@nestjs/core": "^5.0.0",
     "@types/uuid": "^3.4.3",
+    "class-transformer": "^0.1.9",
     "class-validator": "^0.8.5",
     "fastify-formbody": "^2.0.0",
     "reflect-metadata": "^0.1.12",

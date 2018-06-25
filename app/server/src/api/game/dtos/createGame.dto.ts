@@ -1,6 +1,6 @@
-import { IsString, IsNotEmpty, IsInt } from 'class-validator';
+import { IsString, IsNotEmpty, IsInt, IsArray } from 'class-validator';
 
-export class CreateGameDto {
+export class CreateGameRequest {
   @IsNotEmpty()
   @IsString()
   readonly name: string;
@@ -8,6 +8,6 @@ export class CreateGameDto {
   @IsString() readonly description: string;
 }
 
-export class CreateGameRequest {
-  dtos: Array<CreateGameDto>;
+export class CreateGamesRequest {
+  @IsArray() readonly dtos: Array<CreateGameRequest>;
 }

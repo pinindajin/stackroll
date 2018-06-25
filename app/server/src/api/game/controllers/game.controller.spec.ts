@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GameController } from './game.controller';
 import { GameService } from '../services/game.service';
+import 'jest';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -12,10 +13,11 @@ describe('AppController', () => {
     }).compile();
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
+  describe('root', async () => {
+    it('should return "Hello World!"', async () => {
       const appController = app.get<GameController>(GameController);
-      expect(appController.root()).toBe('Hello World!');
+      const response = await appController.findOne('');
+      expect(response).toBe('TEST');
     });
   });
 });

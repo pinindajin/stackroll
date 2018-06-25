@@ -1,6 +1,6 @@
-import { IsUUID, IsNotEmpty, IsString } from 'class-validator';
+import { IsUUID, IsNotEmpty, IsString, IsArray } from 'class-validator';
 
-export class UpdateGameDto {
+export class UpdateGameRequest {
   @IsNotEmpty()
   @IsUUID()
   readonly id: string;
@@ -10,6 +10,6 @@ export class UpdateGameDto {
   @IsString() readonly description: string;
 }
 
-export class UpdateGameRequest {
-  dtos: Array<UpdateGameDto>;
+export class UpdateGamesRequest {
+  @IsArray() readonly dtos: Array<UpdateGameRequest>;
 }
