@@ -1,8 +1,18 @@
-import { IsUUID, IsNotEmpty, IsString, IsArray } from 'class-validator';
+import {
+  IsUUID,
+  IsNotEmpty,
+  IsString,
+  IsArray,
+  ValidateNested,
+  IsDefined,
+  IsInstance,
+  ArrayNotEmpty,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class UpdateGameRequest {
-  @IsNotEmpty()
-  @IsUUID()
+  @IsDefined()
+  @IsUUID('4')
   readonly id: string;
 
   @IsString() readonly name: string;
@@ -11,5 +21,11 @@ export class UpdateGameRequest {
 }
 
 export class UpdateGamesRequest {
-  @IsArray() readonly dtos: Array<UpdateGameRequest>;
+  @ValidateNested({ each: true })
+  @Type(() => UpdateGameRequest)
+  @IsArray()
+  @IsDefined()
+  @IsInstance(UpdateGameRequest, { each: true })
+  @ArrayNotEmpty()
+  readonly requests: Array<UpdateGameRequest>;
 }

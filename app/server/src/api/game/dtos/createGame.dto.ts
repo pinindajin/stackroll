@@ -4,6 +4,7 @@ import {
   ValidateNested,
   IsDefined,
   IsInstance,
+  ArrayNotEmpty,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -21,5 +22,6 @@ export class CreateGamesRequest {
   @IsArray()
   @IsDefined()
   @IsInstance(CreateGameRequest, { each: true })
-  readonly dtos: Array<CreateGameRequest>;
+  @ArrayNotEmpty()
+  readonly requests: Array<CreateGameRequest>;
 }
