@@ -65,6 +65,6 @@ export class GameController {
     request: DeleteGamesRequest,
   ): Promise<string> {
     return `::: ${JSON.stringify(request)} ${request instanceof
-      DeleteGamesRequest} ${Array.isArray(request.requests)}`;
+      DeleteGamesRequest} ${Array.isArray(request.ids)}`;
   }
 }
