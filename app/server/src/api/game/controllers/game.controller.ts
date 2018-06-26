@@ -11,9 +11,12 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { GameService } from '../services/game.service';
-import { GetGamesRequest, GetGameRequest } from '../dtos/getGame.dto';
-import { IsUUID } from 'class-validator';
+import { GetGamesRequest } from '../dtos/getGame.dto';
 import { ValidateUUIDPipe } from '../../../common/pipes/validate-uuid.pipe';
+import { CreateGamesRequest } from '../dtos/createGame.dto';
+
+// dev
+const x = console.log;
 
 @Controller('api/game')
 export class GameController {
@@ -24,10 +27,8 @@ export class GameController {
     @Query(new ValidationPipe({ transform: true }))
     request: GetGamesRequest,
   ): Promise<string> {
-    // Dev
-    const x = console.log;
-    x(request instanceof GetGamesRequest);
-    return `::: ${JSON.stringify(request)} ${Array.isArray(request.ids)}`;
+    return `::: ${JSON.stringify(request)} ${request instanceof
+      GetGamesRequest} ${Array.isArray(request.ids)}`;
   }
 
   @Get(':id')
@@ -36,5 +37,14 @@ export class GameController {
     id: string,
   ): Promise<string> {
     return `${id} ${typeof id}`;
+  }
+
+  @Post()
+  async create(
+    @Body(new ValidationPipe({ transform: true }))
+    request: CreateGamesRequest,
+  ): Promise<string> {
+    return `::: ${JSON.stringify(request)} ${request instanceof
+      CreateGamesRequest} ${Array.isArray(request.dtos)}`;
   }
 }

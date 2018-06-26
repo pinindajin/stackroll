@@ -4,7 +4,7 @@ import {
   ArgumentMetadata,
   BadRequestException,
 } from '@nestjs/common';
-import { Validator, ValidationError } from 'class-validator';
+import { Validator } from 'class-validator';
 
 @Injectable()
 export class ValidateUUIDPipe implements PipeTransform<string, string> {
@@ -15,12 +15,8 @@ export class ValidateUUIDPipe implements PipeTransform<string, string> {
   }
 
   transform(value: string, metadata: ArgumentMetadata): string {
-    const x = console.log;
-    x(`${value}`);
-
     if (!this.validator.isUUID(value, '4'))
-      throw new BadRequestException('Id must be a version 4 UUID');
-
+      throw new BadRequestException(`${value} must be a version 4 UUID.`);
     return value;
   }
 }

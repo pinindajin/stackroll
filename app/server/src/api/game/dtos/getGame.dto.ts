@@ -1,26 +1,26 @@
-import { IsUUID, IsNotEmpty, IsInt, IsArray } from 'class-validator';
+import { IsUUID, IsNotEmpty, IsInt, IsArray, IsDefined } from 'class-validator';
 import { IPagedRequest } from '../../../common/interfaces/IPagedRequest.i';
 import { Get } from '@nestjs/common';
 import { Transform } from 'class-transformer';
 
 export class GetGameRequest {
-  @IsNotEmpty()
+  @IsDefined()
   @IsUUID('4')
   readonly id: string;
 }
 
 export class GetGamesRequest implements IPagedRequest {
-  @IsNotEmpty()
+  @IsDefined()
   @Transform(x => +x)
   @IsInt()
   readonly pageSize: number;
 
-  @IsNotEmpty()
+  @IsDefined()
   @Transform(x => +x)
   @IsInt()
   readonly pageOffset: number;
 
-  @IsNotEmpty()
+  @IsDefined()
   @IsArray()
   @IsUUID('4', { each: true })
   readonly ids: Array<string>;

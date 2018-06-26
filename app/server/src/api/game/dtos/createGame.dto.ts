@@ -1,7 +1,14 @@
-import { IsString, IsNotEmpty, IsInt, IsArray } from 'class-validator';
+import {
+  IsString,
+  IsArray,
+  ValidateNested,
+  IsDefined,
+  IsInstance,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateGameRequest {
-  @IsNotEmpty()
+  @IsDefined()
   @IsString()
   readonly name: string;
 
@@ -9,5 +16,10 @@ export class CreateGameRequest {
 }
 
 export class CreateGamesRequest {
-  @IsArray() readonly dtos: Array<CreateGameRequest>;
+  @ValidateNested({ each: true })
+  @Type(() => CreateGameRequest)
+  @IsArray()
+  @IsDefined()
+  @IsInstance(CreateGameRequest, { each: true })
+  readonly dtos: Array<CreateGameRequest>;
 }
