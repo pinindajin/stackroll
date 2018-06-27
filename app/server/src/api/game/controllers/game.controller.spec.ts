@@ -2,8 +2,8 @@ import { Test } from '@nestjs/testing';
 import { GameController } from './game.controller';
 import { GameService } from '../services/game.service';
 import 'jest';
-import { GetGamesRequest, GetGamesResponse } from '../dtos';
-import { Game } from '../models';
+import { GetGamesRequest, GetGamesResponse } from '../models/dtos';
+import { Game } from '../models/domain';
 
 describe('GameController', () => {
   let gameController: GameController;

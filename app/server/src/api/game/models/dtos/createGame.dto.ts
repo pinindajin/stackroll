@@ -8,26 +8,26 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class CreatedGame {
+export class GameToCreate {
   @IsDefined()
   @IsString()
   readonly name: string;
 
   @IsString() readonly description: string;
 
-  constructor(config?: Partial<CreatedGame>) {
+  constructor(config?: Partial<GameToCreate>) {
     Object.assign(this, config);
   }
 }
 
 export class CreateGamesRequest {
   @ValidateNested({ each: true })
-  @Type(() => CreatedGame)
+  @Type(() => GameToCreate)
   @IsArray()
   @IsDefined()
-  @IsInstance(CreatedGame, { each: true })
+  @IsInstance(GameToCreate, { each: true })
   @ArrayNotEmpty()
-  readonly requests: Array<CreatedGame>;
+  readonly GamesToCreate: Array<GameToCreate>;
 
   constructor(config?: Partial<CreateGamesRequest>) {
     Object.assign(this, config);

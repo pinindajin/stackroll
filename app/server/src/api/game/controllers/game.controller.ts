@@ -18,11 +18,11 @@ import {
   DeleteGamesRequest,
   UpdateGamesResponse,
   DeleteGamesResponse,
-} from '../dtos';
+} from '../models/dtos';
 import { ValidateUUIDPipe } from '../../../common/pipes/validate-uuid.pipe';
 import { IGameService } from '../interfaces';
-import { GetGameResponse } from '../dtos/getGame.dto';
-import { CreateGamesResponse } from '../dtos/createGame.dto';
+import { GetGameResponse } from '../models/dtos/getGame.dto';
+import { CreateGamesResponse } from '../models/dtos/createGame.dto';
 
 // dev
 const x = console.log;

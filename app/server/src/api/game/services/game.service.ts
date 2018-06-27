@@ -9,12 +9,13 @@ import {
   DeleteGamesResponse,
   CreateGamesRequest,
   CreateGamesResponse,
-} from '../dtos';
+} from '../models/dtos';
 import { IGameService, IGameStore } from '../interfaces';
+import { Game } from '../models/game.model';
 
 @Injectable()
 export class GameService implements IGameService {
-  constructor(@Inject('GameRepository') repo: IGameStore) {}
+  constructor(@Inject('GameRepository') private readonly repo: IGameStore) {}
 
   async find(request: GetGamesRequest): Promise<GetGamesResponse> {
     return new GetGamesResponse();
@@ -25,6 +26,15 @@ export class GameService implements IGameService {
   }
 
   async create(request: CreateGamesRequest): Promise<CreateGamesResponse> {
+    const gamesToCreate = request.GamesToCreate.map(_game => {
+      return new Game({
+        name: _game.name,
+        description: _game.description,
+      });
+    });
+
+    const createdGames = await this.repo.create(gamesToCreate);
+
     return new CreateGamesResponse();
   }
 

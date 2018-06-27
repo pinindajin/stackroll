@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class UpdatedGame {
+export class GameToUpdate {
   @IsDefined()
   @IsUUID('4')
   readonly id: string;
@@ -19,21 +19,21 @@ export class UpdatedGame {
 
   @IsString() readonly description: string;
 
-  constructor(config?: Partial<UpdatedGame>) {
+  constructor(config?: Partial<GameToUpdate>) {
     Object.assign(this, config);
   }
 }
 
 export class UpdateGamesRequest {
   @ValidateNested({ each: true })
-  @Type(() => UpdatedGame)
+  @Type(() => GameToUpdate)
   @IsArray()
   @IsDefined()
-  @IsInstance(UpdatedGame, { each: true })
+  @IsInstance(GameToUpdate, { each: true })
   @ArrayNotEmpty()
-  readonly requests: Array<UpdatedGame>;
+  readonly GamesToUpdate: Array<GameToUpdate>;
 
-  constructor(config?: Partial<UpdatedGame>) {
+  constructor(config?: Partial<GameToUpdate>) {
     Object.assign(this, config);
   }
 }
