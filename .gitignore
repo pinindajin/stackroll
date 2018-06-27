@@ -12,6 +12,7 @@ app/server/tmp
 app/server/out-tsc
 app/server/e2e/*.js
 app/server/e2e/*.map
+app/server/.env
 
 # IDEs and editors
 /.idea
@@ -32,6 +33,7 @@ app/server/e2e/*.map
 !.vscode/extensions.json
 
 # misc
+.env
 /.sass-cache
 /connect.lock
 /coverage
