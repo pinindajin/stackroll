@@ -19,7 +19,7 @@ import {
 
 export interface IGameService {
   find(request: GetGamesRequest): Promise<GetGamesResponse>;
-  findOne(request: GetGameRequest): Promise<GetGameResponse>;
+  findOne(id: string): Promise<GetGameResponse>;
   create(request: CreateGamesRequest): Promise<CreateGamesResponse>;
   update(request: UpdateGamesRequest): Promise<UpdateGamesResponse>;
   delete(request: DeleteGamesRequest): Promise<DeleteGamesResponse>;

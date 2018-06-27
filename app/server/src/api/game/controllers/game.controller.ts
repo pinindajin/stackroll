@@ -16,9 +16,13 @@ import {
   CreateGamesRequest,
   UpdateGamesRequest,
   DeleteGamesRequest,
+  UpdateGamesResponse,
+  DeleteGamesResponse,
 } from '../dtos';
 import { ValidateUUIDPipe } from '../../../common/pipes/validate-uuid.pipe';
 import { IGameService } from '../interfaces';
+import { GetGameResponse } from '../dtos/getGame.dto';
+import { CreateGamesResponse } from '../dtos/createGame.dto';
 
 // dev
 const x = console.log;
@@ -39,34 +43,31 @@ export class GameController {
   async findOne(
     @Param('id', new ValidateUUIDPipe())
     id: string,
-  ): Promise<string> {
-    return `${id} ${typeof id}`;
+  ): Promise<GetGameResponse> {
+    return this.service.findOne(id);
   }
 
   @Post()
   async create(
     @Body(new ValidationPipe({ transform: true, skipMissingProperties: true }))
     request: CreateGamesRequest,
-  ): Promise<string> {
-    return `::: ${JSON.stringify(request)} ${request instanceof
-      CreateGamesRequest} ${Array.isArray(request.requests)}`;
+  ): Promise<CreateGamesResponse> {
+    return this.service.create(request);
   }
 
   @Patch()
   async update(
     @Body(new ValidationPipe({ transform: true, skipMissingProperties: true }))
     request: UpdateGamesRequest,
-  ): Promise<string> {
-    return `::: ${JSON.stringify(request)} ${request instanceof
-      UpdateGamesRequest} ${Array.isArray(request.requests)}`;
+  ): Promise<UpdateGamesResponse> {
+    return this.service.update(request);
   }
 
   @Delete()
   async delete(
     @Body(new ValidationPipe({ transform: true }))
     request: DeleteGamesRequest,
-  ): Promise<string> {
-    return `::: ${JSON.stringify(request)} ${request instanceof
-      DeleteGamesRequest} ${Array.isArray(request.ids)}`;
+  ): Promise<DeleteGamesResponse> {
+    return this.service.delete(request);
   }
 }

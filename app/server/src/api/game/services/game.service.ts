@@ -21,7 +21,7 @@ export class GameService implements IGameService {
     return new GetGamesResponse();
   }
 
-  async findOne(request: GetGameRequest): Promise<GetGameResponse> {
+  async findOne(id: string): Promise<GetGameResponse> {
     return new GetGameResponse();
   }
 
