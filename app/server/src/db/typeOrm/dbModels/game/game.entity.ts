@@ -2,7 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class DbGame {
-  @PrimaryGeneratedColumn('uuid') id: string;
+  // TODO: UUID
+  @PrimaryGeneratedColumn() id: string;
 
   @Column() name: string;
 
