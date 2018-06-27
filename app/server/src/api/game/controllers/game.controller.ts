@@ -8,27 +8,31 @@ import {
   Body,
   Query,
   ValidationPipe,
+  Inject,
 } from '@nestjs/common';
-import { GameService } from '../services/game.service';
-import { GetGamesRequest, GetGamesResponse } from '../dtos/getGame.dto';
+import {
+  GetGamesRequest,
+  GetGamesResponse,
+  CreateGamesRequest,
+  UpdateGamesRequest,
+  DeleteGamesRequest,
+} from '../dtos';
 import { ValidateUUIDPipe } from '../../../common/pipes/validate-uuid.pipe';
-import { CreateGamesRequest } from '../dtos/createGame.dto';
-import { UpdateGamesRequest } from '../dtos/updateGame.dto';
-import { DeleteGamesRequest } from '../dtos/deleteGameDto.dto';
+import { IGameService } from '../interfaces';
 
 // dev
 const x = console.log;
 
 @Controller('api/game')
 export class GameController {
-  constructor(private readonly gameService: GameService) {}
+  constructor(@Inject('GameService') private readonly service: IGameService) {}
 
   @Get()
   async find(
     @Query(new ValidationPipe({ transform: true }))
     request: GetGamesRequest,
   ): Promise<GetGamesResponse> {
-    return this.gameService.find(request);
+    return this.service.find(request);
   }
 
   @Get(':id')

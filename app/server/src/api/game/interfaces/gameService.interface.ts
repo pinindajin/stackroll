@@ -18,9 +18,9 @@ import {
 } from '../dtos/deleteGameDto.dto';
 
 export interface IGameService {
-  find(request: GetGamesRequest): GetGamesResponse;
-  findOne(request: GetGameRequest): GetGameResponse;
-  create(request: CreateGamesRequest): CreateGamesResponse;
-  update(request: UpdateGamesRequest): UpdateGamesResponse;
-  delete(request: DeleteGamesRequest): DeleteGamesResponse;
+  find(request: GetGamesRequest): Promise<GetGamesResponse>;
+  findOne(request: GetGameRequest): Promise<GetGameResponse>;
+  create(request: CreateGamesRequest): Promise<CreateGamesResponse>;
+  update(request: UpdateGamesRequest): Promise<UpdateGamesResponse>;
+  delete(request: DeleteGamesRequest): Promise<DeleteGamesResponse>;
 }
