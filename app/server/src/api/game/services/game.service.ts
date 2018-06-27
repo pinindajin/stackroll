@@ -11,7 +11,7 @@ import {
   CreateGamesResponse,
 } from '../models/dtos';
 import { IGameService, IGameStore } from '../interfaces';
-import { Game } from '../models/game.model';
+import { Game } from '../models/domain/game.model';
 
 @Injectable()
 export class GameService implements IGameService {
@@ -32,10 +32,12 @@ export class GameService implements IGameService {
         description: _game.description,
       });
     });
+    const saveResponse = await this.repo.create(gamesToCreate);
+    const createdGameIds = saveResponse.values;
 
-    const createdGames = await this.repo.create(gamesToCreate);
-
-    return new CreateGamesResponse();
+    return new CreateGamesResponse({
+      ids: createdGameIds,
+    });
   }
 
   async update(request: UpdateGamesRequest): Promise<UpdateGamesResponse> {

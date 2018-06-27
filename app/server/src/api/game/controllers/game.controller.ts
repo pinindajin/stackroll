@@ -2,13 +2,13 @@ import {
   Get,
   Controller,
   Post,
-  Patch,
   Delete,
   Param,
   Body,
   Query,
   ValidationPipe,
   Inject,
+  Put,
 } from '@nestjs/common';
 import {
   GetGamesRequest,
@@ -55,7 +55,7 @@ export class GameController {
     return this.service.create(request);
   }
 
-  @Patch()
+  @Put()
   async update(
     @Body(new ValidationPipe({ transform: true, skipMissingProperties: true }))
     request: UpdateGamesRequest,

@@ -1,9 +1,8 @@
 import { IsUUID, IsNotEmpty, IsInt, IsArray, IsDefined } from 'class-validator';
-import { IPagedRequest } from '../../../common/interfaces/IPagedRequest.i';
-import { Get } from '@nestjs/common';
+import { IPagedRequest } from '../../../../common/interfaces';
 import { Transform } from 'class-transformer';
-import { IPagedResponse } from 'common/interfaces/IPagedResponse.i';
-import { Game } from '../models/game.model';
+import { IPagedResponse } from 'common/interfaces/IPagedResponse.interface';
+import { Game } from '../domain';
 
 export class GetGameRequest {
   @IsDefined()

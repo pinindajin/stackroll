@@ -1,5 +1,6 @@
 import { IGameStore } from '../interfaces/gameRepository.interface';
-import { Game } from '../models/game.model';
+import { Game } from '../models/domain/game.model';
+import { SaveGamesResponse } from '../models/dal/saveGamesResponse.model';
 export class GameStore implements IGameStore {
   async find(ids: Array<string>): Promise<Array<Game>> {
     return [];
@@ -9,8 +10,8 @@ export class GameStore implements IGameStore {
     return new Game();
   }
 
-  async create(games: Array<Game>): Promise<Array<string>> {
-    return [];
+  async create(games: Array<Game>): Promise<SaveGamesResponse> {
+    return new SaveGamesResponse();
   }
 
   async update(games: Array<Game>): Promise<Array<string>> {

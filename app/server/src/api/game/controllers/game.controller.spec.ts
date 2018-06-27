@@ -4,15 +4,26 @@ import { GameService } from '../services/game.service';
 import 'jest';
 import { GetGamesRequest, GetGamesResponse } from '../models/dtos';
 import { Game } from '../models/domain';
+import { GameStore } from '../stores/game.store';
 
 describe('GameController', () => {
   let gameController: GameController;
   let gameService: GameService;
 
   beforeAll(async () => {
+    const gameServiceProvider = {
+      provide: 'GameService',
+      useClass: GameService,
+    };
+
+    const gameStoreProvider = {
+      provide: 'GameRepository',
+      useClass: GameStore,
+    };
+
     const app = await Test.createTestingModule({
       controllers: [GameController],
-      providers: [GameService],
+      providers: [gameServiceProvider, gameStoreProvider],
     }).compile();
 
     gameController = app.get<GameController>(GameController);

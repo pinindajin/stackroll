@@ -1,7 +1,5 @@
 import {
   IsUUID,
-  IsNotEmpty,
-  IsInt,
   IsDefined,
   IsArray,
   MinLength,

@@ -7,6 +7,8 @@ import {
   ArrayNotEmpty,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { Game } from '../domain/game.model';
+import { Hyperlink } from '../../../../common/models/hyperlink.model';
 
 export class GameToCreate {
   @IsDefined()
@@ -34,4 +36,10 @@ export class CreateGamesRequest {
   }
 }
 
-export class CreateGamesResponse {}
+export class CreateGamesResponse {
+  readonly ids: Array<string>;
+
+  constructor(config?: Partial<CreateGamesResponse>) {
+    Object.assign(this, config);
+  }
+}

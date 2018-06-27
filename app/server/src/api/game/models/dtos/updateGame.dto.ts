@@ -1,6 +1,5 @@
 import {
   IsUUID,
-  IsNotEmpty,
   IsString,
   IsArray,
   ValidateNested,

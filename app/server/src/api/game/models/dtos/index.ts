@@ -1,5 +1,5 @@
 import {
-  CreatedGame,
+  GameToCreate,
   CreateGamesRequest,
   CreateGamesResponse,
 } from './createGame.dto';
@@ -10,21 +10,21 @@ import {
   GetGamesRequest,
 } from './getGame.dto';
 import {
-  UpdatedGame,
+  GameToUpdate,
   UpdateGamesRequest,
   UpdateGamesResponse,
 } from './updateGame.dto';
 import { DeleteGamesRequest, DeleteGamesResponse } from './deleteGameDto.dto';
 
 export {
-  CreatedGame,
+  GameToCreate,
   CreateGamesRequest,
   CreateGamesResponse,
   GetGameRequest,
   GetGameResponse,
   GetGamesResponse,
   GetGamesRequest,
-  UpdatedGame,
+  GameToUpdate,
   UpdateGamesRequest,
   UpdateGamesResponse,
   DeleteGamesRequest,
