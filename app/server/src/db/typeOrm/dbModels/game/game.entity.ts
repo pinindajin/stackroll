@@ -1,11 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Generated } from 'typeorm';
 
 @Entity()
 export class DbGame {
   // TODO: UUID
-  @PrimaryGeneratedColumn() id: string;
+  @PrimaryGeneratedColumn() seqId: number;
+
+  @Generated('uuid') id: string;
 
   @Column() name: string;
 
   @Column() description: string;
+
+  constructor(config?: Partial<DbGame>) {
+    Object.assign(this, config);
+  }
 }
