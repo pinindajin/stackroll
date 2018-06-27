@@ -19,3 +19,5 @@ export class DeleteGamesRequest {
     Object.assign(this, config);
   }
 }
+
+export class DeleteGamesResponse {}

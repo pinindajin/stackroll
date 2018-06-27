@@ -2,6 +2,8 @@ import { IsUUID, IsNotEmpty, IsInt, IsArray, IsDefined } from 'class-validator';
 import { IPagedRequest } from '../../../common/interfaces/IPagedRequest.i';
 import { Get } from '@nestjs/common';
 import { Transform } from 'class-transformer';
+import { IPagedResponse } from 'common/interfaces/IPagedResponse.i';
+import { Game } from '../models/game.model';
 
 export class GetGameRequest {
   @IsDefined()
@@ -12,6 +14,8 @@ export class GetGameRequest {
     Object.assign(this, config);
   }
 }
+
+export class GetGameResponse {}
 
 export class GetGamesRequest implements IPagedRequest {
   @IsDefined()
@@ -29,6 +33,20 @@ export class GetGamesRequest implements IPagedRequest {
   readonly ids: Array<string>;
 
   constructor(config?: Partial<GetGamesRequest>) {
+    Object.assign(this, config);
+  }
+}
+
+export class GetGamesResponse implements IPagedResponse {
+  readonly pageSize: number;
+
+  readonly pageNumber: number;
+
+  readonly nextPageLink: string;
+
+  readonly games: Array<Game>;
+
+  constructor(config?: Partial<GetGamesResponse>) {
     Object.assign(this, config);
   }
 }

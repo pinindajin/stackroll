@@ -5,13 +5,12 @@ import {
   Patch,
   Delete,
   Param,
-  ParseIntPipe,
   Body,
   Query,
   ValidationPipe,
 } from '@nestjs/common';
 import { GameService } from '../services/game.service';
-import { GetGamesRequest } from '../dtos/getGame.dto';
+import { GetGamesRequest, GetGamesResponse } from '../dtos/getGame.dto';
 import { ValidateUUIDPipe } from '../../../common/pipes/validate-uuid.pipe';
 import { CreateGamesRequest } from '../dtos/createGame.dto';
 import { UpdateGamesRequest } from '../dtos/updateGame.dto';
@@ -28,7 +27,7 @@ export class GameController {
   async find(
     @Query(new ValidationPipe({ transform: true }))
     request: GetGamesRequest,
-  ): Promise<string> {
+  ): Promise<GetGamesResponse> {
     return this.gameService.find(request);
   }
 
