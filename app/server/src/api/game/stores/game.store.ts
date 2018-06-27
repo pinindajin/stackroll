@@ -1,6 +1,6 @@
-import { IGameRepository } from '../interfaces/gameRepository.interface';
+import { IGameStore } from '../interfaces/gameRepository.interface';
 import { Game } from '../models/game.model';
-export class GameRepository implements IGameRepository {
+export class GameStore implements IGameStore {
   async find(ids: Array<string>): Promise<Array<Game>> {
     return [];
   }

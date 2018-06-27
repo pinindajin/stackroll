@@ -2,7 +2,6 @@ import { Injectable, Inject } from '@nestjs/common';
 import {
   GetGamesRequest,
   GetGamesResponse,
-  GetGameRequest,
   GetGameResponse,
   UpdateGamesRequest,
   UpdateGamesResponse,
@@ -11,11 +10,11 @@ import {
   CreateGamesRequest,
   CreateGamesResponse,
 } from '../dtos';
-import { IGameService, IGameRepository } from '../interfaces';
+import { IGameService, IGameStore } from '../interfaces';
 
 @Injectable()
 export class GameService implements IGameService {
-  constructor(@Inject('GameRepository') repo: IGameRepository) {}
+  constructor(@Inject('GameRepository') repo: IGameStore) {}
 
   async find(request: GetGamesRequest): Promise<GetGamesResponse> {
     return new GetGamesResponse();

@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
 import { GameController } from './controllers/game.controller';
 import { GameService } from './services/game.service';
-import { GameRepository } from './repositories/game.repository';
+import { GameStore } from './stores/game.store';
 
 const gameServiceProvider = {
   provide: 'GameService',
   useClass: GameService,
 };
 
-const gameRepositoryProvider = {
+const gameStoreProvider = {
   provide: 'GameRepository',
-  useClass: GameRepository,
+  useClass: GameStore,
 };
 
 @Module({
   controllers: [GameController],
-  providers: [gameServiceProvider, gameRepositoryProvider],
+  providers: [gameServiceProvider, gameStoreProvider],
 })
 export class GameModule {}
