@@ -14,6 +14,10 @@ export class CreateGameRequest {
   readonly name: string;
 
   @IsString() readonly description: string;
+
+  constructor(config?: Partial<CreateGameRequest>) {
+    Object.assign(this, config);
+  }
 }
 
 export class CreateGamesRequest {
@@ -24,4 +28,8 @@ export class CreateGamesRequest {
   @IsInstance(CreateGameRequest, { each: true })
   @ArrayNotEmpty()
   readonly requests: Array<CreateGameRequest>;
+
+  constructor(config?: Partial<CreateGamesRequest>) {
+    Object.assign(this, config);
+  }
 }

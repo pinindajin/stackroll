@@ -7,6 +7,10 @@ export class GetGameRequest {
   @IsDefined()
   @IsUUID('4')
   readonly id: string;
+
+  constructor(config?: Partial<GetGameRequest>) {
+    Object.assign(this, config);
+  }
 }
 
 export class GetGamesRequest implements IPagedRequest {
@@ -20,8 +24,11 @@ export class GetGamesRequest implements IPagedRequest {
   @IsInt()
   readonly pageOffset: number;
 
-  @IsDefined()
   @IsArray()
   @IsUUID('4', { each: true })
   readonly ids: Array<string>;
+
+  constructor(config?: Partial<GetGamesRequest>) {
+    Object.assign(this, config);
+  }
 }

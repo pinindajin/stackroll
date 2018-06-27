@@ -14,4 +14,8 @@ export class DeleteGamesRequest {
   @IsUUID('4', { each: true })
   @ArrayNotEmpty()
   readonly ids: Array<string>;
+
+  constructor(config?: Partial<DeleteGamesRequest>) {
+    Object.assign(this, config);
+  }
 }

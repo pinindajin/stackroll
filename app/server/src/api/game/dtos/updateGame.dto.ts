@@ -18,6 +18,10 @@ export class UpdateGameRequest {
   @IsString() readonly name: string;
 
   @IsString() readonly description: string;
+
+  constructor(config?: Partial<UpdateGameRequest>) {
+    Object.assign(this, config);
+  }
 }
 
 export class UpdateGamesRequest {
@@ -28,4 +32,8 @@ export class UpdateGamesRequest {
   @IsInstance(UpdateGameRequest, { each: true })
   @ArrayNotEmpty()
   readonly requests: Array<UpdateGameRequest>;
+
+  constructor(config?: Partial<UpdateGameRequest>) {
+    Object.assign(this, config);
+  }
 }

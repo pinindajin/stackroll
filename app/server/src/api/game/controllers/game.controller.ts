@@ -22,15 +22,14 @@ const x = console.log;
 
 @Controller('api/game')
 export class GameController {
-  constructor(private readonly appService: GameService) {}
+  constructor(private readonly gameService: GameService) {}
 
   @Get()
   async find(
     @Query(new ValidationPipe({ transform: true }))
     request: GetGamesRequest,
   ): Promise<string> {
-    return `::: ${JSON.stringify(request)} ${request instanceof
-      GetGamesRequest} ${Array.isArray(request.ids)}`;
+    return this.gameService.find(request);
   }
 
   @Get(':id')
