@@ -31,6 +31,8 @@ export class GameService implements IGameService {
       values: findResponse.values,
       pageSize: findResponse.pageSize,
       pageNumber: findResponse.pageNumber,
+      unfetchedIds: findResponse.unfetchedIds,
+      moreRecords: findResponse.moreRecords,
     });
   }
 

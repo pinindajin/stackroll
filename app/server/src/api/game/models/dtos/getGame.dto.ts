@@ -26,12 +26,12 @@ export class GetGamesRequest implements IPagedRequest {
   @IsDefined()
   @Transform(x => +x)
   @IsInt()
-  pageSize: number;
+  pageSize: number = 100;
 
   @IsDefined()
   @Transform(x => +x)
   @IsInt()
-  pageOffset: number;
+  pageOffset: number = 0;
 
   @IsArray()
   @IsUUID('4', { each: true })

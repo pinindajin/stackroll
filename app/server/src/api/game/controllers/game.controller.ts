@@ -37,11 +37,20 @@ export class GameController {
     request: GetGamesRequest,
   ): Promise<GetGamesResponse> {
     const serviceResponse = await this.service.find(request);
-    const nextPageLink = `api/game
-      ?pageSize=${serviceResponse.pageSize}
-      &pageOffset=${serviceResponse.pageSize * serviceResponse.pageNumber + 1}`;
-    const getGamesResponse = new GetGamesResponse();
-    return getGamesResponse;
+
+    return new GetGamesResponse({
+      games: serviceResponse.values,
+      pageNumber: serviceResponse.pageNumber,
+      pageSize: serviceResponse.pageSize,
+      nextPageLink:
+        serviceResponse.moreRecords === true
+          ? this.buildNextPageLink(
+              serviceResponse.pageSize,
+              serviceResponse.pageNumber,
+              serviceResponse.unfetchedIds,
+            )
+          : null,
+    });
   }
 
   @Get(':id')
@@ -74,5 +83,25 @@ export class GameController {
     request: DeleteGamesRequest,
   ): Promise<DeleteGamesResponse> {
     return this.service.delete(request);
+  }
+
+  private buildNextPageLink(
+    pageSize: number,
+    pageNumber: number,
+    ids: Array<string>,
+  ): string {
+    // let nextPageLink = `api/game
+    //     ?pageSize=${serviceResponse.pageSize}
+    //     &pageOffset=${serviceResponse.pageSize * serviceResponse.pageNumber +
+    //       1}`;
+    //   if (
+    //     serviceResponse.unfetchedIds &&
+    //     serviceResponse.unfetchedIds.length > 0
+    //   ) {
+    //     // TODO: generate query string for unfetched ids
+    //     nextPageLink += ``;
+    //   }
+    // TODO build next page link string.
+    return ``;
   }
 }

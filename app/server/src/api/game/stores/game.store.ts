@@ -12,7 +12,7 @@ export class GameStore implements IGameStore {
   ) {}
 
   async find(request: StoreFindRequest): Promise<StoreFindResponse<Game>> {
-    return new StoreFindResponse();
+    return new StoreFindResponse<Game>();
   }
 
   async findOne(id: string): Promise<Game> {
@@ -20,14 +20,14 @@ export class GameStore implements IGameStore {
   }
 
   async create(games: Array<Game>): Promise<StoreSaveResponse<string>> {
-    return new StoreSaveResponse();
+    return new StoreSaveResponse<string>();
   }
 
   async update(games: Array<Game>): Promise<StoreSaveResponse<string>> {
-    return new StoreSaveResponse();
+    return new StoreSaveResponse<string>();
   }
 
   async delete(ids: Array<string>): Promise<StoreSaveResponse<string>> {
-    return new StoreSaveResponse();
+    return new StoreSaveResponse<string>();
   }
 }
