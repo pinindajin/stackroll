@@ -14,7 +14,13 @@ export class GetGameRequest {
   }
 }
 
-export class GetGameResponse {}
+export class GetGameResponse {
+  readonly game: Game;
+
+  constructor(config?: Partial<GetGameResponse>) {
+    Object.assign(this, config);
+  }
+}
 
 export class GetGamesRequest implements IPagedRequest {
   @IsDefined()

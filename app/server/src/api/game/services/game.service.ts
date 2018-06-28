@@ -22,7 +22,10 @@ export class GameService implements IGameService {
   }
 
   async findOne(id: string): Promise<GetGameResponse> {
-    return new GetGameResponse();
+    const game = await this.repo.findOne(id);
+    return new GetGameResponse({
+      game,
+    });
   }
 
   async create(request: CreateGamesRequest): Promise<CreateGamesResponse> {

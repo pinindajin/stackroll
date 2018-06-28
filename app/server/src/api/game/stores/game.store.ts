@@ -1,9 +1,9 @@
-import { IGameStore } from '../interfaces/gameRepository.interface';
+import { IGameStore } from '../interfaces/gameStore.interface';
 import { Game } from '../models/domain/game.model';
-import { SaveGamesResponse } from '../models/dal/saveGamesResponse.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DbGame } from '../../../db/typeOrm/dbModels/game/game.entity';
+import { StoreSaveResponse } from '../../../common/models/storeSaveResponse.model';
 export class GameStore implements IGameStore {
   constructor(
     @InjectRepository(DbGame) private readonly store: Repository<DbGame>,
@@ -17,15 +17,15 @@ export class GameStore implements IGameStore {
     return new Game();
   }
 
-  async create(games: Array<Game>): Promise<SaveGamesResponse> {
-    return new SaveGamesResponse();
+  async create(games: Array<Game>): Promise<StoreSaveResponse<string>> {
+    return new StoreSaveResponse();
   }
 
-  async update(games: Array<Game>): Promise<Array<string>> {
-    return [];
+  async update(games: Array<Game>): Promise<StoreSaveResponse<string>> {
+    return new StoreSaveResponse();
   }
 
-  async delete(ids: Array<string>): Promise<Array<string>> {
-    return [];
+  async delete(ids: Array<string>): Promise<StoreSaveResponse<string>> {
+    return new StoreSaveResponse();
   }
 }
