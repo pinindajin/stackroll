@@ -6,17 +6,18 @@ import {
   IsDefined,
   IsInstance,
   ArrayNotEmpty,
+  ArrayMaxSize,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class GameToUpdate {
   @IsDefined()
   @IsUUID('4')
-  readonly id: string;
+  id: string;
 
-  @IsString() readonly name: string;
+  @IsString() name: string;
 
-  @IsString() readonly description: string;
+  @IsString() description: string;
 
   constructor(config?: Partial<GameToUpdate>) {
     Object.assign(this, config);
@@ -30,7 +31,8 @@ export class UpdateGamesRequest {
   @IsDefined()
   @IsInstance(GameToUpdate, { each: true })
   @ArrayNotEmpty()
-  readonly GamesToUpdate: Array<GameToUpdate>;
+  @ArrayMaxSize(100)
+  GamesToUpdate: Array<GameToUpdate>;
 
   constructor(config?: Partial<GameToUpdate>) {
     Object.assign(this, config);

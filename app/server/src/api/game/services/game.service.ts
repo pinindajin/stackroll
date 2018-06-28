@@ -12,13 +12,26 @@ import {
 } from '../models/dtos';
 import { IGameService, IGameStore } from '../interfaces';
 import { Game } from '../models/domain/game.model';
+import { StoreFindRequest } from '../../../common/models/storeFindRequest.model';
+import { ServiceFindResponse } from '../../../common/models/serviceFindResponse.model';
 
 @Injectable()
 export class GameService implements IGameService {
   constructor(@Inject('GameRepository') private readonly repo: IGameStore) {}
 
-  async find(request: GetGamesRequest): Promise<GetGamesResponse> {
-    return new GetGamesResponse();
+  async find(request: GetGamesRequest): Promise<ServiceFindResponse<Game>> {
+    const findResponse = await this.repo.find(
+      new StoreFindRequest({
+        pageOffset: request.pageOffset,
+        pageSize: request.pageSize,
+        ids: request.ids,
+      }),
+    );
+    return new ServiceFindResponse<Game>({
+      values: findResponse.values,
+      pageSize: findResponse.pageSize,
+      pageNumber: findResponse.pageNumber,
+    });
   }
 
   async findOne(id: string): Promise<GetGameResponse> {

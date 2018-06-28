@@ -26,16 +26,16 @@ export class GetGamesRequest implements IPagedRequest {
   @IsDefined()
   @Transform(x => +x)
   @IsInt()
-  readonly pageSize: number;
+  pageSize: number;
 
   @IsDefined()
   @Transform(x => +x)
   @IsInt()
-  readonly pageOffset: number;
+  pageOffset: number;
 
   @IsArray()
   @IsUUID('4', { each: true })
-  readonly ids: Array<string>;
+  ids?: Array<string>;
 
   constructor(config?: Partial<GetGamesRequest>) {
     Object.assign(this, config);
@@ -43,13 +43,13 @@ export class GetGamesRequest implements IPagedRequest {
 }
 
 export class GetGamesResponse implements IPagedResponse {
-  readonly pageSize: number;
+  pageSize: number;
 
-  readonly pageNumber: number;
+  pageNumber: number;
 
-  readonly nextPageLink: string;
+  nextPageLink: string;
 
-  readonly games: Array<Game>;
+  games: Array<Game>;
 
   constructor(config?: Partial<GetGamesResponse>) {
     Object.assign(this, config);

@@ -36,7 +36,12 @@ export class GameController {
     @Query(new ValidationPipe({ transform: true }))
     request: GetGamesRequest,
   ): Promise<GetGamesResponse> {
-    return this.service.find(request);
+    const serviceResponse = await this.service.find(request);
+    const nextPageLink = `api/game
+      ?pageSize=${serviceResponse.pageSize}
+      &pageOffset=${serviceResponse.pageSize * serviceResponse.pageNumber + 1}`;
+    const getGamesResponse = new GetGamesResponse();
+    return getGamesResponse;
   }
 
   @Get(':id')

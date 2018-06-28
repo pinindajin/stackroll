@@ -4,13 +4,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DbGame } from '../../../db/typeOrm/dbModels/game/game.entity';
 import { StoreSaveResponse } from '../../../common/models/storeSaveResponse.model';
+import { StoreFindResponse } from '../../../common/models/storeFindResponse.model';
+import { StoreFindRequest } from '../../../common/models/storeFindRequest.model';
 export class GameStore implements IGameStore {
   constructor(
     @InjectRepository(DbGame) private readonly store: Repository<DbGame>,
   ) {}
 
-  async find(ids: Array<string>): Promise<Array<Game>> {
-    return [];
+  async find(request: StoreFindRequest): Promise<StoreFindResponse<Game>> {
+    return new StoreFindResponse();
   }
 
   async findOne(id: string): Promise<Game> {
