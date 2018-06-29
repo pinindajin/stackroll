@@ -1,5 +1,5 @@
 import { IPagedRequest } from './IPagedRequest.interface';
 import { IPagedResponse } from './IPagedResponse.interface';
-import { IStoreResponse } from './IStoreResponse.interface';
+import { IStoreSaveResponse } from './IStoreSaveResponse.interface';
 
-export { IPagedRequest, IPagedResponse, IStoreResponse };
+export { IPagedRequest, IPagedResponse, IStoreSaveResponse };
