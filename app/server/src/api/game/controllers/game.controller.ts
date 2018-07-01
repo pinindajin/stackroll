@@ -44,7 +44,7 @@ export class GameController {
       pageSize: serviceResponse.pageSize,
       nextPageLink:
         serviceResponse.moreRecords === true
-          ? this.buildNextPageLink(
+          ? this.buildGamesNextPageLink(
               serviceResponse.pageSize,
               serviceResponse.pageNumber,
               serviceResponse.unfetchedIds,
@@ -85,23 +85,17 @@ export class GameController {
     return this.service.delete(request);
   }
 
-  private buildNextPageLink(
+  private buildGamesNextPageLink(
     pageSize: number,
     pageNumber: number,
     ids: Array<string>,
   ): string {
-    // let nextPageLink = `api/game
-    //     ?pageSize=${serviceResponse.pageSize}
-    //     &pageOffset=${serviceResponse.pageSize * serviceResponse.pageNumber +
-    //       1}`;
-    //   if (
-    //     serviceResponse.unfetchedIds &&
-    //     serviceResponse.unfetchedIds.length > 0
-    //   ) {
-    //     // TODO: generate query string for unfetched ids
-    //     nextPageLink += ``;
-    //   }
-    // TODO build next page link string.
-    return ``;
+    if (ids && ids.length > 0) {
+      const urlEncodedIds = ids.map(id => `&ids[]=${id}`);
+      return `api/game?pageSize=${pageSize}&pageOffset=${pageNumber * pageSize +
+        1}${urlEncodedIds}`;
+    } else
+      return `api/game?pageSize=${pageSize}&pageOffset=${pageNumber * pageSize +
+        1}`;
   }
 }
