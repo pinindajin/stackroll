@@ -9,6 +9,10 @@ TSC_CONFIG = tsconfig.json
 TSLINT = $(BIN)/tslint
 TS_SRC = $(shell find Server -type f -name "*.ts")
 
+.PHONY: test-server
+test-server:
+	cd app/server && npm run test
+
 .PHONY: build-server-dev
 build-server-dev:
 	rm -rf $(SERVER_DIST)/*
