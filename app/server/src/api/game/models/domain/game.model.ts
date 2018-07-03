@@ -1,4 +1,4 @@
-import { IsUUID, IsString } from 'class-validator';
+import { IsUUID } from 'class-validator';
 
 export class Game {
   @IsUUID('4') id: string;

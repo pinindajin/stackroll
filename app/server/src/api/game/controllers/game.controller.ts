@@ -23,6 +23,7 @@ import { ValidateUUIDPipe } from '../../../common/pipes/validate-uuid.pipe';
 import { IGameService } from '../interfaces';
 import { GetGameResponse } from '../models/dtos/getGame.dto';
 import { CreateGamesResponse } from '../models/dtos/createGame.dto';
+import { ICreateEntityResponse } from '../../../common/interfaces/ICreateEntityResponse.interface';
 
 // dev
 const x = console.log;
@@ -65,7 +66,7 @@ export class GameController {
   async create(
     @Body(new ValidationPipe({ transform: true, skipMissingProperties: true }))
     request: CreateGamesRequest,
-  ): Promise<CreateGamesResponse> {
+  ): Promise<ICreateEntityResponse> {
     return this.service.create(request);
   }
 

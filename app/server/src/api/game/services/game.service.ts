@@ -14,6 +14,7 @@ import { IGameService, IGameStore } from '../interfaces';
 import { Game } from '../models/domain/game.model';
 import { StoreFindRequest } from '../../../common/models/storeFindRequest.model';
 import { ServiceFindResponse } from '../../../common/models/serviceFindResponse.model';
+import { CreateEntityResponse } from '../../../common/models/createEntityResponse.dto';
 
 @Injectable()
 export class GameService implements IGameService {
