@@ -9,20 +9,20 @@ TSC_CONFIG = tsconfig.json
 TSLINT = $(BIN)/tslint
 TS_SRC = $(shell find Server -type f -name "*.ts")
 
-.PHONY: test-server
-test-server:
+.PHONY: server-test
+server-test:
 	cd app/server && npm run test
 
-.PHONY: build-server-dev
-build-server-dev:
+.PHONY: server-dev-build
+server-dev-build:
 	rm -rf $(SERVER_DIST)/*
 	cd app/server && npm install && npm run webpack
 
-.PHONY: clean-server
-clean-server:
+.PHONY: server-clean
+server-clean:
 	rm -rf $(SERVER_DIST)/*
 
 .PHONY: run-fullstack
-run-server-dev:
+run-fullstack:
 	docker-compose up
 
