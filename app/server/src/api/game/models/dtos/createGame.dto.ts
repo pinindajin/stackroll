@@ -8,8 +8,6 @@ import {
   ArrayMaxSize,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { Game } from '../domain/game.model';
-import { Hyperlink } from '../../../../common/models/hyperlink.model';
 import { ICreateEntityResponse } from '../../../../common/interfaces/ICreateEntityResponse.interface';
 
 export class GameToCreate {

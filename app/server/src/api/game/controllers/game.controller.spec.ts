@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { GameController } from './game.controller';
-import { GameService } from '../services/game.service';
 import 'jest';
+import each from 'jest-each';
 import {
   GetGamesRequest,
   GetGamesResponse,
@@ -23,6 +23,7 @@ const l = console.log;
 describe('GameController', () => {
   let gameController: GameController;
   let mockGameService: MockGameService;
+  const mockGames = getMockGames();
 
   beforeAll(async () => {
     const mockGameServiceProvider = {
@@ -40,36 +41,83 @@ describe('GameController', () => {
   });
 
   describe('find', async () => {
-    it('should return an array of games', async () => {
-      // arrange
-      const games = getMockGames();
-      const expected = new GetGamesResponse({
-        pageSize: 25,
-        pageNumber: 1,
-        nextPageLink: null,
-        games,
-      });
-      jest.spyOn(mockGameService, 'find').mockImplementation(
-        () =>
-          new ServiceFindResponse<Game>({
-            pageSize: 25,
-            pageNumber: 1,
-            values: games,
-            moreRecords: false,
-          }),
-      );
-      const request = new GetGamesRequest({
-        pageOffset: 0,
-        pageSize: 25,
-      });
+    each([
+      [
+        new GetGamesRequest({
+          pageOffset: 0,
+          pageSize: 5,
+        }),
+        new ServiceFindResponse<Game>({
+          pageSize: 5,
+          pageNumber: 1,
+          values: mockGames.slice(0, 5),
+          moreRecords: true,
+        }),
+        new GetGamesResponse({
+          pageSize: 5,
+          pageNumber: 1,
+          numberOfRecords: 5,
+          nextPageLink: 'api/game?pageSize=5&pageOffset=5',
+          games: mockGames.slice(0, 5),
+        }),
+      ],
+      [
+        new GetGamesRequest({
+          pageOffset: 5,
+          pageSize: 5,
+        }),
+        new ServiceFindResponse<Game>({
+          pageSize: 5,
+          pageNumber: 2,
+          values: mockGames.slice(5, 10),
+          moreRecords: true,
+        }),
+        new GetGamesResponse({
+          pageSize: 5,
+          pageNumber: 2,
+          numberOfRecords: 5,
+          nextPageLink: 'api/game?pageSize=5&pageOffset=10',
+          games: mockGames.slice(5, 10),
+        }),
+      ],
+      [
+        new GetGamesRequest({
+          pageOffset: 15,
+          pageSize: 5,
+        }),
+        new ServiceFindResponse<Game>({
+          pageSize: 5,
+          pageNumber: 4,
+          values: mockGames.slice(15),
+          moreRecords: false,
+        }),
+        new GetGamesResponse({
+          pageSize: 5,
+          pageNumber: 4,
+          numberOfRecords: 1,
+          nextPageLink: null,
+          games: mockGames.slice(15),
+        }),
+      ],
+    ]).it(
+      'should page correctly',
+      async (
+        request: GetGamesRequest,
+        mockResponse: ServiceFindResponse<Game>,
+        expected: GetGamesResponse,
+      ) => {
+        // arrange
+        jest
+          .spyOn(mockGameService, 'find')
+          .mockImplementation(() => mockResponse);
 
-      // act
-      const result = await gameController.find(request);
-      l(`::: ${JSON.stringify(result)}`);
+        // act
+        const result = await gameController.find(request);
 
-      // assert
-      expect(result).toEqual(expected);
-    });
+        // assert
+        expect(result).toEqual(expected);
+      },
+    );
   });
 });
 
@@ -96,7 +144,7 @@ class MockGameService implements IGameService {
   }
 }
 
-const getMockGames = () => {
+function getMockGames() {
   return [
     new Game({
       id: 'd28bd6cc-8766-4921-938d-3b5173efe556',
@@ -168,5 +216,15 @@ const getMockGames = () => {
       name: 'Firing Solutions',
       description: 'Firing solution rolls',
     }),
+    new Game({
+      id: '6214e1f8-b01d-4310-bd8f-015af7e7e8a3',
+      name: 'Dndd 3.5 ya baby',
+      description: '3.5 Laramie Game Rolls',
+    }),
+    new Game({
+      id: 'b9a2ee6f-c4a1-46b5-b4f6-78794fb472c6',
+      name: 'Zinka Weirna',
+      description: 'Monk/Cleric Build',
+    }),
   ];
-};
+}

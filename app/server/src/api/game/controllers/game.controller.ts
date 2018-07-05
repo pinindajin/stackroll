@@ -43,6 +43,7 @@ export class GameController {
       games: serviceResponse.values,
       pageNumber: serviceResponse.pageNumber,
       pageSize: serviceResponse.pageSize,
+      numberOfRecords: serviceResponse.values.length,
       nextPageLink:
         serviceResponse.moreRecords === true
           ? this.buildGamesNextPageLink(
@@ -91,12 +92,11 @@ export class GameController {
     pageNumber: number,
     ids: Array<string>,
   ): string {
+    const baseLink = `api/game?pageSize=${pageSize}&pageOffset=${pageNumber *
+      pageSize}`;
     if (ids && ids.length > 0) {
       const urlEncodedIds = ids.map(id => `&ids[]=${id}`);
-      return `api/game?pageSize=${pageSize}&pageOffset=${pageNumber * pageSize +
-        1}${urlEncodedIds}`;
-    } else
-      return `api/game?pageSize=${pageSize}&pageOffset=${pageNumber * pageSize +
-        1}`;
+      return `${baseLink}${urlEncodedIds}`;
+    } else return baseLink;
   }
 }
