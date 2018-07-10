@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { IModifyEntityResponse } from 'common/interfaces/controller/IModifyEntityResponse.interface';
-import { Hyperlink } from '../../../../common/models/hyperlink.model';
+import { Hyperlink } from 'common/models/hyperlink.model';
 
 export class GameToUpdate {
   @IsDefined()

@@ -1,6 +1,6 @@
-import { IServiceCreateResponse } from '../interfaces/service/IServiceCreateResponse.interface';
+import { IServiceModifyEntityResponse } from '../interfaces/service/IServiceModifyEntityResponse.interface';
 
-export class CreateEntityResponse implements IServiceCreateResponse {
+export class CreateEntityResponse implements IServiceModifyEntityResponse {
   ids: Array<string>;
 
   constructor(config?: Partial<CreateEntityResponse>) {

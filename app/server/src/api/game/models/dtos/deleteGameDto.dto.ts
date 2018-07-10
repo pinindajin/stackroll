@@ -1,6 +1,6 @@
 import { IsUUID, IsDefined, IsArray, ArrayNotEmpty } from 'class-validator';
 import { IModifyEntityResponse } from 'common/interfaces/controller/IModifyEntityResponse.interface';
-import { Hyperlink } from '../../../../common/models/hyperlink.model';
+import { Hyperlink } from 'common/models/hyperlink.model';
 
 export class DeleteGamesRequest {
   @IsDefined()

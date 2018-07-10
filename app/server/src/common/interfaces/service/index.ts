@@ -1,7 +1,7 @@
-import { IServiceCreateResponse } from './IServiceCreateResponse.interface';
+import { IServiceModifyEntityResponse } from './IServiceModifyEntityResponse.interface';
 import { IServiceFindResponse } from './IServiceFindResponse.interface';
 
 export {
-  IServiceCreateResponse,
+  IServiceModifyEntityResponse,
   IServiceFindResponse,
 };

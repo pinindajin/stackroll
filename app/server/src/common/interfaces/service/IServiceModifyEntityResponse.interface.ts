@@ -1,3 +1,3 @@
-export interface IServiceCreateResponse {
+export interface IServiceModifyEntityResponse {
   ids: Array<string>;
 }

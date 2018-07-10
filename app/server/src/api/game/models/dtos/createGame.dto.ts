@@ -8,10 +8,10 @@ import {
   ArrayMaxSize,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { IServiceCreateResponse } from 'common/interfaces/service/IServiceCreateResponse.interface';
+import { IServiceModifyEntityResponse } from 'common/interfaces/service/IServiceModifyEntityResponse.interface';
 import { IModifyEntityResponse } from 'common/interfaces/controller/IModifyEntityResponse.interface';
-import { IHATEOSResponse } from '../../../../common/interfaces/controller/IHATEOSResponse.interface';
-import { Hyperlink } from '../../../../common/models/hyperlink.model';
+import { IHATEOSResponse } from 'common/interfaces/controller/IHATEOSResponse.interface';
+import { Hyperlink } from 'common/models/hyperlink.model';
 
 export class GameToCreate {
   @IsDefined()
