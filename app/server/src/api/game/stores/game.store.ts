@@ -2,10 +2,10 @@ import { IGameStore } from '../interfaces/gameStore.interface';
 import { Game } from '../models/domain/game.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DbGame } from '../../../db/typeOrm/dbModels/game/game.entity';
-import { StoreSaveResponse } from '../../../common/models/storeSaveResponse.model';
-import { StoreFindResponse } from '../../../common/models/storeFindResponse.model';
-import { StoreFindRequest } from '../../../common/models/storeFindRequest.model';
+import { DbGame } from 'db/typeOrm/dbModels/game/game.entity';
+import { StoreSaveResponse } from 'common/models/storeSaveResponse.model';
+import { StoreFindResponse } from 'common/models/storeFindResponse.model';
+import { StoreFindRequest } from 'common/models/storeFindRequest.model';
 export class GameStore implements IGameStore {
   constructor(
     @InjectRepository(DbGame) private readonly store: Repository<DbGame>,

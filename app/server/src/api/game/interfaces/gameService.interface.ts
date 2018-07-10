@@ -1,6 +1,6 @@
-import { IServiceFindResponse } from '../../../common/interfaces/IServiceFindResponse.interface';
+import { IServiceFindResponse } from 'common/interfaces/service/IServiceFindResponse.interface';
 import { Game } from '../models/domain/game.model';
-import { ICreateEntityResponse } from '../../../common/interfaces/ICreateEntityResponse.interface';
+import { IServiceModifyEntityResponse } from 'common/interfaces/service/IServiceModifyEntityResponse.interface';
 import {
   GetGamesRequest,
   GetGameResponse,
@@ -14,8 +14,8 @@ import {
 
 export interface IGameService {
   find(request: GetGamesRequest): Promise<IServiceFindResponse<Game>>;
-  findOne(id: string): Promise<GetGameResponse>;
-  create(request: CreateGamesRequest): Promise<ICreateEntityResponse>;
-  update(request: UpdateGamesRequest): Promise<UpdateGamesResponse>;
-  delete(request: DeleteGamesRequest): Promise<DeleteGamesResponse>;
+  findOne(id: string): Promise<Game>;
+  create(request: CreateGamesRequest): Promise<IServiceModifyEntityResponse>;
+  update(request: UpdateGamesRequest): Promise<IServiceModifyEntityResponse>;
+  delete(request: DeleteGamesRequest): Promise<IServiceModifyEntityResponse>;
 }

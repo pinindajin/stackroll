@@ -8,7 +8,10 @@ import {
   ArrayMaxSize,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ICreateEntityResponse } from '../../../../common/interfaces/ICreateEntityResponse.interface';
+import { IServiceCreateResponse } from 'common/interfaces/service/IServiceCreateResponse.interface';
+import { IModifyEntityResponse } from 'common/interfaces/controller/IModifyEntityResponse.interface';
+import { IHATEOSResponse } from '../../../../common/interfaces/controller/IHATEOSResponse.interface';
+import { Hyperlink } from '../../../../common/models/hyperlink.model';
 
 export class GameToCreate {
   @IsDefined()
@@ -37,8 +40,10 @@ export class CreateGamesRequest {
   }
 }
 
-export class CreateGamesResponse implements ICreateEntityResponse {
+export class CreateGamesResponse implements IModifyEntityResponse {
   ids: Array<string>;
+
+  links: Array<Hyperlink>;
 
   constructor(config?: Partial<CreateGamesResponse>) {
     Object.assign(this, config);

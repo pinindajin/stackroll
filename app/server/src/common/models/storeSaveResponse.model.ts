@@ -1,4 +1,4 @@
-import { IStoreSaveResponse } from 'common/interfaces';
+import { IStoreSaveResponse } from '../interfaces/store';
 
 export class StoreSaveResponse<T> implements IStoreSaveResponse<T> {
   isSuccessful: boolean;

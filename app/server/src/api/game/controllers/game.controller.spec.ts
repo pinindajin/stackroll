@@ -127,8 +127,8 @@ class MockGameService implements IGameService {
     return new ServiceFindResponse();
   }
 
-  async findOne(id: string): Promise<GetGameResponse> {
-    return new GetGameResponse();
+  async findOne(id: string): Promise<Game> {
+    return new Game();
   }
 
   async create(request: CreateGamesRequest): Promise<CreateGamesResponse> {

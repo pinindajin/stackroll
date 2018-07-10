@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ArrayNotEmpty, IsInt } from 'class-validator';
-import { ICreateEntityResponse } from '../../../../common/interfaces/ICreateEntityResponse.interface';
+import { IServiceCreateResponse } from 'common/interfaces/service/IServiceCreateResponse.interface';
 
 export class StaticVarToCreate {
   @IsDefined()
@@ -30,7 +30,7 @@ export class CreateStaticVarReqest {
   staticVars: Array<StaticVarToCreate>;
 }
 
-export class CreateStaticVarResponse implements ICreateEntityResponse {
+export class CreateStaticVarResponse implements IServiceCreateResponse {
   ids: Array<string>;
 
   constructor(config?: Partial<CreateStaticVarResponse>) {

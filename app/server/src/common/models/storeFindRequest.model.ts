@@ -1,4 +1,4 @@
-import { IStoreFindRequest } from '../interfaces/IStoreFindRequest.interface';
+import { IStoreFindRequest } from '../interfaces/store/IStoreFindRequest.interface';
 
 export class StoreFindRequest implements IStoreFindRequest {
   pageOffset: number;

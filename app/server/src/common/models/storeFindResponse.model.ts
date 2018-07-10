@@ -1,4 +1,4 @@
-import { IStoreFindResponse } from '../interfaces/IStoreFindResponse.interface';
+import { IStoreFindResponse } from '../interfaces/store/IStoreFindResponse.interface';
 
 export class StoreFindResponse<T> implements IStoreFindResponse<T> {
   pageSize: number;

@@ -9,6 +9,7 @@ import {
   ValidationPipe,
   Inject,
   Put,
+  HttpCode,
 } from '@nestjs/common';
 import {
   GetGamesRequest,
@@ -19,11 +20,14 @@ import {
   UpdateGamesResponse,
   DeleteGamesResponse,
 } from '../models/dtos';
-import { ValidateUUIDPipe } from '../../../common/pipes/validate-uuid.pipe';
+import { ValidateUUIDPipe } from 'common/pipes/validate-uuid.pipe';
 import { IGameService } from '../interfaces';
 import { GetGameResponse } from '../models/dtos/getGame.dto';
 import { CreateGamesResponse } from '../models/dtos/createGame.dto';
-import { ICreateEntityResponse } from '../../../common/interfaces/ICreateEntityResponse.interface';
+import { IServiceModifyEntityResponse } from 'common/interfaces/service/IServiceModifyEntityResponse.interface';
+import { Game } from '../models/domain/game.model';
+import { Hyperlink } from 'common/models/hyperlink.model';
+import { HttpVerb, HTTPVERB } from '../../../common/models/httpVerb.type';
 
 // dev
 const x = console.log;
@@ -60,15 +64,28 @@ export class GameController {
     @Param('id', new ValidateUUIDPipe())
     id: string,
   ): Promise<GetGameResponse> {
-    return this.service.findOne(id);
+    const result = await this.service.findOne(id);
+    return new GetGameResponse({
+      game: result,
+    });
   }
 
   @Post()
   async create(
     @Body(new ValidationPipe({ transform: true, skipMissingProperties: true }))
     request: CreateGamesRequest,
-  ): Promise<ICreateEntityResponse> {
-    return this.service.create(request);
+  ): Promise<CreateGamesResponse> {
+    const result = await this.service.create(request);
+    return new CreateGamesResponse({
+      ids: result.ids,
+      links: [
+        new Hyperlink({
+          href: ``,
+          rel: ``,
+          type: HTTPVERB.GET,
+        }),
+      ],
+    });
   }
 
   @Put()
@@ -76,7 +93,17 @@ export class GameController {
     @Body(new ValidationPipe({ transform: true, skipMissingProperties: true }))
     request: UpdateGamesRequest,
   ): Promise<UpdateGamesResponse> {
-    return this.service.update(request);
+    const result = await this.service.update(request);
+    return new UpdateGamesResponse({
+      ids: result.ids,
+      links: [
+        new Hyperlink({
+          href: ``,
+          rel: ``,
+          type: HTTPVERB.GET,
+        }),
+      ],
+    });
   }
 
   @Delete()
@@ -84,7 +111,17 @@ export class GameController {
     @Body(new ValidationPipe({ transform: true }))
     request: DeleteGamesRequest,
   ): Promise<DeleteGamesResponse> {
-    return this.service.delete(request);
+    const result = await this.service.delete(request);
+    return new DeleteGamesResponse({
+      ids: result.ids,
+      links: [
+        new Hyperlink({
+          href: ``,
+          rel: ``,
+          type: HTTPVERB.GET,
+        }),
+      ],
+    });
   }
 
   private buildGamesNextPageLink(

@@ -1,7 +1,7 @@
 import { IsUUID, IsNotEmpty, IsInt, IsArray, IsDefined } from 'class-validator';
-import { IPagedRequest } from '../../../../common/interfaces';
+import { IPagedRequest } from 'common/interfaces/controller';
 import { Transform } from 'class-transformer';
-import { IPagedResponse } from 'common/interfaces/IPagedResponse.interface';
+import { IPagedResponse } from 'common/interfaces/controller/IPagedResponse.interface';
 import { StaticVar } from '../domain/staticVar.model';
 
 export class GetStaticVarRequest {
@@ -48,6 +48,8 @@ export class GetStaticVarsResponse implements IPagedResponse {
   pageNumber: number;
 
   nextPageLink: string;
+
+  numberOfRecords: number;
 
   staticVars: Array<StaticVar>;
 

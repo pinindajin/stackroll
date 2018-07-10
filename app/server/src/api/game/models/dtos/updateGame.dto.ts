@@ -9,6 +9,8 @@ import {
   ArrayMaxSize,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IModifyEntityResponse } from 'common/interfaces/controller/IModifyEntityResponse.interface';
+import { Hyperlink } from '../../../../common/models/hyperlink.model';
 
 export class GameToUpdate {
   @IsDefined()
@@ -39,4 +41,12 @@ export class UpdateGamesRequest {
   }
 }
 
-export class UpdateGamesResponse {}
+export class UpdateGamesResponse implements IModifyEntityResponse {
+  ids: Array<string>;
+
+  links: Array<Hyperlink>;
+
+  constructor(config?: Partial<UpdateGamesResponse>) {
+    Object.assign(this, config);
+  }
+}

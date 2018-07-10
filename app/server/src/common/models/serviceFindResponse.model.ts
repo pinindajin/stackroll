@@ -1,4 +1,4 @@
-import { IServiceFindResponse } from '../interfaces/IServiceFindResponse.interface';
+import { IServiceFindResponse } from '../interfaces/service/IServiceFindResponse.interface';
 
 export class ServiceFindResponse<T> implements IServiceFindResponse<T> {
   pageSize: number;
