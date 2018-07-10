@@ -27,13 +27,14 @@ import { CreateGamesResponse } from '../models/dtos/createGame.dto';
 import { IServiceModifyEntityResponse } from 'common/interfaces/service/IServiceModifyEntityResponse.interface';
 import { Game } from '../models/domain/game.model';
 import { Hyperlink } from 'common/models/hyperlink.model';
-import { HttpVerb, HTTPVERB } from '../../../common/models/httpVerb.type';
+import { HttpVerb, HTTPVERB } from 'common/models/httpVerb.type';
+import { ICRUDController } from '../../../common/interfaces/controller/ICrudController.interface';
 
 // dev
 const x = console.log;
 
 @Controller('api/game')
-export class GameController {
+export class GameController implements ICRUDController {
   constructor(@Inject('GameService') private readonly service: IGameService) {}
 
   @Get()

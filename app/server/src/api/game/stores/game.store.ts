@@ -1,4 +1,4 @@
-import { IGameStore } from '../interfaces/gameStore.interface';
+import { IGameStore } from '../interfaces/IGameStore.interface';
 import { Game } from '../models/domain/game.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
