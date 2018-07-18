@@ -29,7 +29,7 @@ import { Game } from '../models/domain/game.model';
 import { Hyperlink } from 'common/models/hyperlink.model';
 import { HTTPVERB } from 'common/models/httpVerb.type';
 import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
-import { AppConfigService } from 'config.service';
+import { AppConfigService, APPCONFIGKEYS } from 'config.service';
 
 // dev
 const x = console.log;
@@ -52,7 +52,7 @@ export class GameController implements ICRUDController {
       games: serviceResponse.values,
       pageNumber: serviceResponse.pageNumber,
       pageSize: serviceResponse.pageSize,
-      numberOfRecords: serviceResponse.values.length,
+      numberOfRecords: serviceResponse.values ? serviceResponse.values.length : 0,
       nextPageLink:
         serviceResponse.moreRecords === true
           ? this.buildGamesNextPageLink(
@@ -85,7 +85,7 @@ export class GameController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: ``,
+          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
           rel: ``,
           type: HTTPVERB.GET,
         }),
