@@ -2,7 +2,7 @@ import { IsUUID, IsNotEmpty, IsInt, IsArray, IsDefined } from 'class-validator';
 import { IPagedRequest } from 'common/interfaces/controller';
 import { Transform } from 'class-transformer';
 import { IPagedResponse } from 'common/interfaces/controller/IPagedResponse.interface';
-import { StaticVar } from '../domain/staticVar.model';
+import { StaticVar } from '../domain/stat.model';
 
 export class GetStaticVarRequest {
   @IsDefined()
