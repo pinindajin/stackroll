@@ -14,7 +14,7 @@ import {
 } from '../models/dtos';
 import { Game } from '../models/domain';
 import { GameStore } from '../stores/game.store';
-import { IGameService } from '../interfaces/gameService.interface';
+import { IGameService } from '../interfaces/IGameService.interface';
 import { ServiceFindResponse } from '../../../common/models/serviceFindResponse.model';
 import { DeleteGamesResponse } from '../models/dtos/deleteGameDto.dto';
 

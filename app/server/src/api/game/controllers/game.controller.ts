@@ -27,15 +27,19 @@ import { CreateGamesResponse } from '../models/dtos/createGame.dto';
 import { IServiceModifyEntityResponse } from 'common/interfaces/service/IServiceModifyEntityResponse.interface';
 import { Game } from '../models/domain/game.model';
 import { Hyperlink } from 'common/models/hyperlink.model';
-import { HttpVerb, HTTPVERB } from 'common/models/httpVerb.type';
-import { ICRUDController } from '../../../common/interfaces/controller/ICrudController.interface';
+import { HTTPVERB } from 'common/models/httpVerb.type';
+import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
+import { AppConfigService } from 'config.service';
 
 // dev
 const x = console.log;
 
 @Controller('api/game')
 export class GameController implements ICRUDController {
-  constructor(@Inject('GameService') private readonly service: IGameService) {}
+  constructor(
+    @Inject('GameService') private readonly service: IGameService,
+    @Inject('AppConfigService') private readonly config: AppConfigService,
+  ) {}
 
   @Get()
   async find(
