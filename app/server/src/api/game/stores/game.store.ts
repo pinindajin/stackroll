@@ -19,7 +19,9 @@ export class GameStore implements IGameStore {
   async find(request: StoreFindRequest): Promise<StoreFindResponse<Game>> {
     if (request.ids && request.ids.length > 0) {
       const [dbGames, count] = await this.store
-        .createQueryBuilder('game')
+        .createQueryBuilder()
+        .select('game')
+        .from(DbGame, 'game')
         .where('game.id IN (:...ids)', { ids: request.ids })
         .skip(request.pageOffset)
         .take(request.pageSize)

@@ -5,7 +5,9 @@ export class DbGame {
   // TODO: UUID
   @PrimaryGeneratedColumn() seqId: number;
 
-  @Generated('uuid') id: string;
+  // @Generated('uuid') // QueryFailedError: function uuid_generate_v4() does not exist
+  @Column()
+  id: string;
 
   @Column() name: string;
 
