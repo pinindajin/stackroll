@@ -51,6 +51,8 @@ export class GetGamesResponse implements IPagedResponse {
 
   numberOfRecords: number;
 
+  totalRecords: number;
+
   games: Array<Game>;
 
   constructor(config?: Partial<GetGamesResponse>) {

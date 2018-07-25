@@ -6,6 +6,7 @@ export class StoreFindResponse<T> implements IStoreFindResponse<T> {
   values: Array<T>;
   unfetchedIds: Array<string>;
   moreRecords: boolean;
+  totalRecords: number;
 
   constructor(config?: Partial<StoreFindResponse<T>>) {
     Object.assign(this, config);

@@ -4,4 +4,5 @@ export interface IStoreFindResponse<T> {
   values: Array<T>;
   unfetchedIds: Array<string>;
   moreRecords: boolean;
+  totalRecords: number;
 }

@@ -6,6 +6,7 @@ export class ServiceFindResponse<T> implements IServiceFindResponse<T> {
   values: Array<T>;
   unfetchedIds: Array<string>;
   moreRecords: boolean;
+  totalRecords: number;
 
   constructor(config?: Partial<ServiceFindResponse<T>>) {
     Object.assign(this, config);

@@ -3,4 +3,5 @@ export interface IPagedResponse {
   pageNumber: number;
   numberOfRecords: number;
   nextPageLink?: string;
+  totalRecords: number;
 }

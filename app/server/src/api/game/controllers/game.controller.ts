@@ -53,6 +53,7 @@ export class GameController implements ICRUDController {
       pageNumber: serviceResponse.pageNumber,
       pageSize: serviceResponse.pageSize,
       numberOfRecords: serviceResponse.values ? serviceResponse.values.length : 0,
+      totalRecords: serviceResponse.totalRecords,
       nextPageLink:
         serviceResponse.moreRecords === true
           ? this.buildGamesNextPageLink(
@@ -86,7 +87,7 @@ export class GameController implements ICRUDController {
       links: [
         new Hyperlink({
           href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
-          rel: ``,
+          rel: `self`,
           type: HTTPVERB.GET,
         }),
       ],
@@ -103,9 +104,9 @@ export class GameController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: ``,
-          rel: ``,
-          type: HTTPVERB.GET,
+          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
+          rel: `self`,
+          type: HTTPVERB.PUT,
         }),
       ],
     });
@@ -121,9 +122,9 @@ export class GameController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: ``,
-          rel: ``,
-          type: HTTPVERB.GET,
+          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
+          rel: `self`,
+          type: HTTPVERB.DELETE,
         }),
       ],
     });

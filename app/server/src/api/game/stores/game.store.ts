@@ -17,7 +17,50 @@ export class GameStore implements IGameStore {
   ) {}
 
   async find(request: StoreFindRequest): Promise<StoreFindResponse<Game>> {
-    return new StoreFindResponse<Game>();
+    if (request.ids && request.ids.length > 0) {
+      const [dbGames, count] = await this.store
+        .createQueryBuilder('game')
+        .where('game.id IN (:...ids)', { ids: request.ids })
+        .skip(request.pageOffset)
+        .take(request.pageSize)
+        .getManyAndCount();
+      const games = dbGames.map(dbGame => {
+        return new Game({
+          id: dbGame.id,
+          name: dbGame.name,
+          description: dbGame.description,
+        });
+      });
+      const fethcedIds = games.map(game => game.id);
+      const unfetchedIds = request.ids
+        .filter(id => !fethcedIds.includes(id));
+      return new StoreFindResponse<Game>({
+        pageNumber: 0,
+        pageSize: request.pageSize,
+        totalRecords: count,
+        values: games,
+        unfetchedIds,
+      });
+    } else {
+      const [dbGames, count] = await this.store
+        .createQueryBuilder('game')
+        .skip(request.pageOffset)
+        .take(request.pageSize)
+        .getManyAndCount();
+      const games = dbGames.map(dbGame => {
+        return new Game({
+          id: dbGame.id,
+          name: dbGame.name,
+          description: dbGame.description,
+        });
+      });
+      return new StoreFindResponse<Game>({
+        pageNumber: 0,
+        pageSize: request.pageSize,
+        totalRecords: count,
+        values: games,
+      });
+    }
   }
 
   async findOne(id: string): Promise<Game> {
@@ -49,8 +92,7 @@ export class GameStore implements IGameStore {
         isSuccessful: true,
         values: saveResult.map(result => result.id),
       });
-    }
-    catch (err) {
+    } catch (err) {
       // TODO: figure out error types
       return new StoreSaveResponse<string>({
         errors: [new Error('Error records to database.')],
