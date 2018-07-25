@@ -35,11 +35,12 @@ export class GameStore implements IGameStore {
       const unfetchedIds = request.ids
         .filter(id => !fethcedIds.includes(id));
       return new StoreFindResponse<Game>({
-        pageNumber: 0,
+        pageNumber: (Math.ceil(request.pageOffset / request.pageSize) + 1),
         pageSize: request.pageSize,
         totalRecords: count,
         values: games,
         unfetchedIds,
+        moreRecords: (request.pageOffset + request.pageSize) < count,
       });
     } else {
       const [dbGames, count] = await this.store
@@ -55,10 +56,11 @@ export class GameStore implements IGameStore {
         });
       });
       return new StoreFindResponse<Game>({
-        pageNumber: 0,
+        pageNumber: (Math.ceil(request.pageOffset / request.pageSize) + 1),
         pageSize: request.pageSize,
         totalRecords: count,
         values: games,
+        moreRecords: (request.pageOffset + request.pageSize) < count,
       });
     }
   }
