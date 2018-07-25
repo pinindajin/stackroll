@@ -1,4 +1,4 @@
-import { IsUUID, IsNotEmpty, IsInt, IsArray, IsDefined } from 'class-validator';
+import { IsUUID, IsNotEmpty, IsInt, IsArray, IsDefined, IsPositive } from 'class-validator';
 import { IPagedRequest } from 'common/interfaces/controller';
 import { Transform } from 'class-transformer';
 import { IPagedResponse } from 'common/interfaces/controller/IPagedResponse.interface';
@@ -26,16 +26,18 @@ export class GetGamesRequest implements IPagedRequest {
   @IsDefined()
   @Transform(x => +x)
   @IsInt()
+  @IsPositive()
   pageSize: number = 100;
 
   @IsDefined()
   @Transform(x => +x)
   @IsInt()
+  @IsPositive()
   pageOffset: number = 0;
 
   @IsArray()
   @IsUUID('4', { each: true })
-  ids?: Array<string>;
+  ids?: Array<string> = [];
 
   constructor(config?: Partial<GetGamesRequest>) {
     Object.assign(this, config);
