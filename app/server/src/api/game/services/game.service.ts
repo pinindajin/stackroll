@@ -51,14 +51,23 @@ export class GameService implements IGameService {
     });
     const saveResponse = await this.repo.create(gamesToCreate);
     const createdGameIds = saveResponse.values;
-
     return new CreateGamesResponse({
       ids: createdGameIds,
     });
   }
 
   async update(request: UpdateGamesRequest): Promise<UpdateGamesResponse> {
-    return new UpdateGamesResponse();
+    const gamesToUpdate = request.GamesToUpdate.map(_game => {
+      return new Game({
+        id: _game.id,
+        name: _game.name,
+        description: _game.description,
+      });
+    });
+    const updateResponse = await this.repo.update(gamesToUpdate);
+    return new UpdateGamesResponse({
+      ids: updateResponse.values,
+    });
   }
 
   async delete(request: DeleteGamesRequest): Promise<DeleteGamesResponse> {
