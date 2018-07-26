@@ -71,6 +71,10 @@ export class GameService implements IGameService {
   }
 
   async delete(request: DeleteGamesRequest): Promise<DeleteGamesResponse> {
-    return new DeleteGamesResponse();
+    const gamesToDeleteIds = request.ids;
+    const deleteResponse = await this.repo.delete(gamesToDeleteIds);
+    return new DeleteGamesResponse({
+      ids: deleteResponse.values,
+    });
   }
 }

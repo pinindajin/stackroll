@@ -135,7 +135,22 @@ export class GameStore implements IGameStore {
   }
 
   async delete(ids: Array<string>): Promise<StoreSaveResponse<string>> {
-    return new StoreSaveResponse<string>();
+    try {
+      const deletedGameIds = ids
+        .filter(async id => {
+          const gameToDelete = await this.store.findOne({ id });
+          if (gameToDelete) {
+            this.store.remove(gameToDelete);
+            return true;
+          }
+        });
+      return new StoreSaveResponse<string>({
+        values: ids,
+      });
+    }
+    catch (err) {
+      this.logAndThrow(err);
+    }
   }
 
   // Temp Function
