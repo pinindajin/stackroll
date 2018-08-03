@@ -1,10 +1,13 @@
 import { ICRUDController } from '../../../common/interfaces/controller/ICrudController.interface';
-import { Controller, Inject, Query, ValidationPipe, Get } from '../../../../node_modules/@nestjs/common';
+import { Controller, Inject, Query, ValidationPipe, Get, Body } from '../../../../node_modules/@nestjs/common';
 import { AppConfigService } from 'config.service';
 import { RollService } from '../services/roll.service';
 import { GetRollsResponse, GetRollsRequest } from '../models/dtos/getRoll.dto';
 import { Roll } from '../models/domain/roll.model';
 import { ValidateUUIDPipe } from 'common/pipes/validate-uuid.pipe';
+import { DeleteRollsRequest, DeleteRollsResponse } from '../models/dtos/deleteRoll.dto';
+import { CreateRollsRequest, CreateRollsResponse } from '../models/dtos/createRoll.dto';
+import { UpdateRollsRequest, UpdateRollsResponse } from '../models/dtos/updateRoll.dto';
 
 @Controller('api/roll')
 export class RollController implements ICRUDController {
@@ -29,15 +32,24 @@ export class RollController implements ICRUDController {
     return new Roll();
   }
 
-  async create(request) {
-
+  async create(
+    @Body(new ValidationPipe({ transform: true, skipMissingProperties: true }))
+    request: CreateRollsRequest,
+  ): Promise<CreateRollsResponse> {
+    return new CreateRollsResponse();
   }
 
-  async update(request) {
-
+  async update(
+    @Body(new ValidationPipe({ transform: true, skipMissingProperties: true }))
+    request: UpdateRollsRequest,
+  ): Promise<UpdateRollsResponse> {
+    return new UpdateRollsResponse();
   }
 
-  async delete(request) {
-
+  async delete(
+    @Body(new ValidationPipe({ transform: true }))
+    request: DeleteRollsRequest,
+  ): Promise<DeleteRollsResponse> {
+    return new DeleteRollsResponse();
   }
 }
