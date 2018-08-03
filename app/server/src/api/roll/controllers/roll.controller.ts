@@ -1,7 +1,10 @@
 import { ICRUDController } from '../../../common/interfaces/controller/ICrudController.interface';
-import { Controller, Inject } from '../../../../node_modules/@nestjs/common';
+import { Controller, Inject, Query, ValidationPipe, Get } from '../../../../node_modules/@nestjs/common';
 import { AppConfigService } from 'config.service';
 import { RollService } from '../services/roll.service';
+import { GetRollsResponse, GetRollsRequest } from '../models/dtos/getRoll.dto';
+import { Roll } from '../models/domain/roll.model';
+import { ValidateUUIDPipe } from 'common/pipes/validate-uuid.pipe';
 
 @Controller('api/roll')
 export class RollController implements ICRUDController {
@@ -10,12 +13,20 @@ export class RollController implements ICRUDController {
     @Inject('AppConfigService') private readonly config: AppConfigService,
   ) {}
 
-  async find(request) {
-
+  @Get()
+  async find(@Query(
+    new ValidationPipe({ transform: true }))
+    request: GetRollsRequest,
+  ): Promise<GetRollsResponse> {
+    return new GetRollsResponse();
   }
 
-  async findOne(request) {
-
+  @Get(':id')
+  async findOne(
+    @Query('id', new ValidateUUIDPipe())
+    request: string,
+  ): Promise<Roll> {
+    return new Roll();
   }
 
   async create(request) {
