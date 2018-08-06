@@ -1,4 +1,4 @@
-import { IsDefined, IsString, ValidateNested, IsArray, IsInstance, ArrayNotEmpty, ArrayMaxSize } from '../../../../../node_modules/class-validator';
+import { IsDefined, IsString, ValidateNested, IsArray, IsInstance, ArrayNotEmpty, ArrayMaxSize } from 'class-validator';
 import { Hyperlink } from 'common/models/hyperlink.model';
 import { Type } from 'class-transformer';
 export class RollToCreate {

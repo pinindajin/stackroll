@@ -1,5 +1,5 @@
-import { ICRUDController } from '../../../common/interfaces/controller/ICrudController.interface';
-import { Controller, Inject, Query, ValidationPipe, Get, Body } from '../../../../node_modules/@nestjs/common';
+import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
+import { Controller, Inject, Query, ValidationPipe, Get, Body } from '@nestjs/common';
 import { AppConfigService } from 'config.service';
 import { RollService } from '../services/roll.service';
 import { GetRollsResponse, GetRollsRequest } from '../models/dtos/getRoll.dto';

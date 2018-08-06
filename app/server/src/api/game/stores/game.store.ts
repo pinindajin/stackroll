@@ -6,8 +6,8 @@ import { DbGame } from 'db/typeOrm/dbModels/game/game.entity';
 import { StoreSaveResponse } from 'common/models/storeSaveResponse.model';
 import { StoreFindResponse } from 'common/models/storeFindResponse.model';
 import { StoreFindRequest } from 'common/models/storeFindRequest.model';
-import { Injectable } from '../../../../node_modules/@nestjs/common';
-import { json } from '../../../../node_modules/@types/body-parser';
+import { Injectable } from '@nestjs/common';
+import { json } from 'body-parser';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()
