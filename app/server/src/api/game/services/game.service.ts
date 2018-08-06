@@ -14,7 +14,7 @@ import { IGameService, IGameStore } from '../interfaces';
 import { Game } from '../models/domain/game.model';
 import { StoreFindRequest } from 'common/models/storeFindRequest.model';
 import { ServiceFindResponse } from 'common/models/serviceFindResponse.model';
-import { CreateEntityResponse } from 'common/models/createEntityResponse.dto';
+import { ServiceModifyResponse } from '../../../common/models/serviceModifyResponse.model';
 
 @Injectable()
 export class GameService implements IGameService {
@@ -42,7 +42,7 @@ export class GameService implements IGameService {
     return await this.repo.findOne(id);
   }
 
-  async create(request: CreateGamesRequest): Promise<CreateGamesResponse> {
+  async create(request: CreateGamesRequest): Promise<ServiceModifyResponse> {
     const gamesToCreate = request.GamesToCreate.map(_game => {
       return new Game({
         name: _game.name,
@@ -51,12 +51,12 @@ export class GameService implements IGameService {
     });
     const saveResponse = await this.repo.create(gamesToCreate);
     const createdGameIds = saveResponse.values;
-    return new CreateGamesResponse({
+    return new ServiceModifyResponse({
       ids: createdGameIds,
     });
   }
 
-  async update(request: UpdateGamesRequest): Promise<UpdateGamesResponse> {
+  async update(request: UpdateGamesRequest): Promise<ServiceModifyResponse> {
     const gamesToUpdate = request.GamesToUpdate.map(_game => {
       return new Game({
         id: _game.id,
@@ -65,15 +65,15 @@ export class GameService implements IGameService {
       });
     });
     const updateResponse = await this.repo.update(gamesToUpdate);
-    return new UpdateGamesResponse({
+    return new ServiceModifyResponse({
       ids: updateResponse.values,
     });
   }
 
-  async delete(request: DeleteGamesRequest): Promise<DeleteGamesResponse> {
+  async delete(request: DeleteGamesRequest): Promise<ServiceModifyResponse> {
     const gamesToDeleteIds = request.ids;
     const deleteResponse = await this.repo.delete(gamesToDeleteIds);
-    return new DeleteGamesResponse({
+    return new ServiceModifyResponse({
       ids: deleteResponse.values,
     });
   }
