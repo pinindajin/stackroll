@@ -50,9 +50,8 @@ export class GameService implements IGameService {
       });
     });
     const saveResponse = await this.repo.create(gamesToCreate);
-    const createdGameIds = saveResponse.values;
     return new ServiceModifyResponse({
-      ids: createdGameIds,
+      ids: saveResponse.values,
     });
   }
 

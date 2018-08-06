@@ -7,4 +7,8 @@ export class Roll {
   name: string;
 
   description: string;
+
+  constructor(config?: Partial<Roll>) {
+    Object.assign(this, config);
+  }
 }
