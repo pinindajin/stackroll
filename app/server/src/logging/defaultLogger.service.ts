@@ -2,12 +2,12 @@ import { LoggerService } from '@nestjs/common';
 
 export class DefaultLogger implements LoggerService {
   log(message: string) {
-    process.stdout.write(`@Info: ${message}`);
+    process.stdout.write(`\n@Info: ${message}`);
   }
   error(message: string, trace: string) {
-    process.stdout.write(`@Error: ${message}`);
+    process.stdout.write(`\n@Error: ${message}`);
   }
   warn(message: string) {
-    process.stdout.write(`@Warn: ${message}`);
+    process.stdout.write(`\n@Warn: ${message}`);
   }
 }
