@@ -1,11 +1,12 @@
 // Possibly remove in favor of docker env vars
 import * as dotenv from 'dotenv';
+import { ConnectionOptions } from '../../../node_modules/typeorm';
 dotenv.config();
 
-export const typeOrmPostgresConfig = {
+export const typeOrmPostgresConfig: ConnectionOptions = {
   type: 'postgres',
   host: process.env.TYPEORM_POSTGRES_HOST,
-  port: process.env.TYPEORM_POSTGRES_PORT,
+  port: parseInt(process.env.TYPEORM_POSTGRES_PORT, 10),
   username: process.env.TYPEORM_POSTGRES_USERNAME,
   password: process.env.TYPEORM_POSTGRES_PASSWORD,
   database: process.env.TYPEORM_POSTGRES_DATABASE,
