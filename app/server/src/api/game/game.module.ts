@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
 import { GameController } from './controllers/game.controller';
 import { GameService } from './services/game.service';
 import { GameStore } from './stores/game.store';
@@ -6,12 +6,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DbGame } from 'db/typeOrm/dbModels/game/game.entity';
 import { AppConfigModule } from 'config.module';
 
-const gameServiceProvider = {
+const gameServiceProvider: Provider = {
   provide: 'GameService',
   useClass: GameService,
 };
 
-const gameStoreProvider = {
+const gameStoreProvider: Provider = {
   provide: 'GameRepository',
   useClass: GameStore,
 };
