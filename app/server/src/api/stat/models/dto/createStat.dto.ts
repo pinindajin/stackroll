@@ -4,36 +4,47 @@ import {
   IsDefined,
   IsInstance,
   ArrayMaxSize,
+  IsString,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ArrayNotEmpty, IsInt } from 'class-validator';
 import { IServiceModifyEntityResponse } from 'common/interfaces/service/IServiceModifyEntityResponse.interface';
+import { Hyperlink } from '../../../../common/models/hyperlink.model';
 
-export class StaticVarToCreate {
+export class StatToCreate {
   @IsDefined()
   @IsInt()
   value: number;
 
-  constructor(config?: Partial<StaticVarToCreate>) {
+  @IsDefined()
+  @IsString()
+  name: string;
+
+  @IsString()
+  description: string;
+
+  constructor(config?: Partial<StatToCreate>) {
     Object.assign(this, config);
   }
 }
 
-export class CreateStaticVarReqest {
+export class CreateStatsRequest {
   @ValidateNested({ each: true })
-  @Type(() => StaticVarToCreate)
+  @Type(() => StatToCreate)
   @IsArray()
   @IsDefined()
-  @IsInstance(StaticVarToCreate, { each: true })
+  @IsInstance(StatToCreate, { each: true })
   @ArrayNotEmpty()
   @ArrayMaxSize(100)
-  staticVars: Array<StaticVarToCreate>;
+  stats: Array<StatToCreate>;
 }
 
-export class CreateStaticVarResponse implements IServiceModifyEntityResponse {
+export class CreateStatsResponse implements IServiceModifyEntityResponse {
   ids: Array<string>;
 
-  constructor(config?: Partial<CreateStaticVarResponse>) {
+  links: Array<Hyperlink>;
+
+  constructor(config?: Partial<CreateStatsResponse>) {
     Object.assign(this, config);
   }
 }

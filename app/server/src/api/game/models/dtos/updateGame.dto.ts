@@ -34,7 +34,7 @@ export class UpdateGamesRequest {
   @IsInstance(GameToUpdate, { each: true })
   @ArrayNotEmpty()
   @ArrayMaxSize(100)
-  GamesToUpdate: Array<GameToUpdate>;
+  gamesToUpdate: Array<GameToUpdate>;
 
   constructor(config?: Partial<GameToUpdate>) {
     Object.assign(this, config);

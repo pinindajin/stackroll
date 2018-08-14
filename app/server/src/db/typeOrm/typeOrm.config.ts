@@ -1,6 +1,6 @@
 // Possibly remove in favor of docker env vars
 import * as dotenv from 'dotenv';
-import { ConnectionOptions } from '../../../node_modules/typeorm';
+import { ConnectionOptions } from 'typeorm';
 
 dotenv.config();
 

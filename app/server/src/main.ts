@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from 'app.module';
 import * as dotenv from 'dotenv';
-import { DefaultLogger } from './logging/defaultLogger.service';
+import { DefaultLogger } from 'logging/defaultLogger.service';
 dotenv.config();
 
 async function bootstrap() {

@@ -1,48 +1,50 @@
-import { IsUUID, IsNotEmpty, IsInt, IsArray, IsDefined } from 'class-validator';
+import { IsUUID, IsNotEmpty, IsInt, IsArray, IsDefined, IsPositive } from 'class-validator';
 import { IPagedRequest } from 'common/interfaces/controller';
 import { Transform } from 'class-transformer';
 import { IPagedResponse } from 'common/interfaces/controller/IPagedResponse.interface';
-import { StaticVar } from '../domain/stat.model';
+import { Stat } from '../domain';
 
-export class GetStaticVarRequest {
+export class GetStatRequest {
   @IsDefined()
   @IsUUID('4')
   readonly id: string;
 
-  constructor(config?: Partial<GetStaticVarRequest>) {
+  constructor(config?: Partial<GetStatRequest>) {
     Object.assign(this, config);
   }
 }
 
-export class GetStaticVarResponse {
-  readonly staticVar: StaticVar;
+export class GetStatResponse {
+  readonly stat: Stat;
 
-  constructor(config?: Partial<GetStaticVarResponse>) {
+  constructor(config?: Partial<GetStatResponse>) {
     Object.assign(this, config);
   }
 }
 
-export class GetStaticVarsRequest implements IPagedRequest {
+export class GetStatsRequest implements IPagedRequest {
   @IsDefined()
   @Transform(x => +x)
   @IsInt()
+  @IsPositive()
   pageSize: number = 100;
 
   @IsDefined()
   @Transform(x => +x)
   @IsInt()
+  @IsPositive()
   pageOffset: number = 0;
 
   @IsArray()
   @IsUUID('4', { each: true })
-  ids?: Array<string>;
+  ids?: Array<string> = [];
 
-  constructor(config?: Partial<GetStaticVarsRequest>) {
+  constructor(config?: Partial<GetStatsRequest>) {
     Object.assign(this, config);
   }
 }
 
-export class GetStaticVarsResponse implements IPagedResponse {
+export class GetStatsResponse implements IPagedResponse {
   pageSize: number;
 
   pageNumber: number;
@@ -51,9 +53,11 @@ export class GetStaticVarsResponse implements IPagedResponse {
 
   numberOfRecords: number;
 
-  staticVars: Array<StaticVar>;
+  totalRecords: number;
 
-  constructor(config?: Partial<GetStaticVarsResponse>) {
+  stats: Array<Stat>;
+
+  constructor(config?: Partial<GetStatsResponse>) {
     Object.assign(this, config);
   }
 }

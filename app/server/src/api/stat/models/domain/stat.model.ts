@@ -1,11 +1,15 @@
-import { IsUUID, IsInt } from 'class-validator';
+import { IsUUID, IsInt, IsString } from 'class-validator';
 
-export class StaticVar {
+export class Stat {
   @IsUUID('4') id: string;
 
   @IsInt() value: number;
 
-  constructor(config?: Partial<StaticVar>) {
+  @IsString() name: string;
+
+  @IsString() description: string;
+
+  constructor(config?: Partial<Stat>) {
     Object.assign(this, config);
   }
 }
