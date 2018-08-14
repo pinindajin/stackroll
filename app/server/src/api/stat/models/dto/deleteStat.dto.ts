@@ -14,12 +14,12 @@ export class DeleteStatsRequest {
   }
 }
 
-export class DeleteStatsResonse implements IModifyEntityResponse {
+export class DeleteStatsResponse implements IModifyEntityResponse {
   ids: Array<string>;
 
   links: Array<Hyperlink>;
 
-  constructor(config?: Partial<DeleteStatsResonse>) {
+  constructor(config?: Partial<DeleteStatsResponse>) {
     Object.assign(this, config);
   }
 }
