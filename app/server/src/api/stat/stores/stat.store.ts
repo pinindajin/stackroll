@@ -1,68 +1,70 @@
-import { IGameStore } from '../interfaces/IGameStore.interface';
-import { Game } from '../models/domain/game.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DbGame } from 'db/typeOrm/dbModels/game/game.entity';
 import { StoreSaveResponse } from 'common/models/storeSaveResponse.model';
 import { StoreFindResponse } from 'common/models/storeFindResponse.model';
 import { StoreFindRequest } from 'common/models/storeFindRequest.model';
 import { Injectable } from '@nestjs/common';
 import { json } from 'body-parser';
 import { v4 as uuid } from 'uuid';
+import { IStatStore } from '../interfaces/IStatStore.interface';
+import { DbStat } from '../../../db/typeOrm/dbModels/stat/stat.entity';
+import { Stat } from '../models/domain';
 
 @Injectable()
 export class StatStore implements IStatStore {
   constructor(
-    @InjectRepository(DbGame) private readonly store: Repository<DbGame>,
+    @InjectRepository(DbStat) private readonly store: Repository<DbStat>,
   ) {}
 
-  async find(request: StoreFindRequest): Promise<StoreFindResponse<Game>> {
+  async find(request: StoreFindRequest): Promise<StoreFindResponse<Stat>> {
     try {
       if (request.ids && request.ids.length > 0) {
-        const [dbGames, count] = await this.store
+        const [dbStats, count] = await this.store
           .createQueryBuilder()
-          .select('game')
-          .from(DbGame, 'game')
-          .where('game.id IN (:...ids)', { ids: request.ids })
+          .select('stat')
+          .from(DbStat, 'stat')
+          .where('stat.id IN (:...ids)', { ids: request.ids })
           .skip(request.pageOffset)
           .take(request.pageSize)
           .getManyAndCount();
-        const games = dbGames.map(dbGame => {
-          return new Game({
-            id: dbGame.id,
-            name: dbGame.name,
-            description: dbGame.description,
+        const stats = dbStats.map(dbStat => {
+          return new Stat({
+            id: dbStat.id,
+            value: dbStat.value,
+            name: dbStat.name,
+            description: dbStat.description,
           });
         });
-        const fethcedIds = games.map(game => game.id);
+        const fethcedIds = stats.map(stat => stat.id);
         const unfetchedIds = request.ids
           .filter(id => !fethcedIds.includes(id));
-        return new StoreFindResponse<Game>({
+        return new StoreFindResponse<Stat>({
           pageNumber: (Math.ceil(request.pageOffset / request.pageSize) + 1),
           pageSize: request.pageSize,
           totalRecords: count,
-          values: games,
+          values: stats,
           unfetchedIds,
           moreRecords: (request.pageOffset + request.pageSize) < count,
         });
       } else {
-        const [dbGames, count] = await this.store
-          .createQueryBuilder('game')
+        const [dbStats, count] = await this.store
+          .createQueryBuilder('stat')
           .skip(request.pageOffset)
           .take(request.pageSize)
           .getManyAndCount();
-        const games = dbGames.map(dbGame => {
-          return new Game({
-            id: dbGame.id,
-            name: dbGame.name,
-            description: dbGame.description,
+        const stats = dbStats.map(dbStat => {
+          return new Stat({
+            id: dbStat.id,
+            value: dbStat.value,
+            name: dbStat.name,
+            description: dbStat.description,
           });
         });
-        return new StoreFindResponse<Game>({
+        return new StoreFindResponse<Stat>({
           pageNumber: (Math.ceil(request.pageOffset / request.pageSize) + 1),
           pageSize: request.pageSize,
           totalRecords: count,
-          values: games,
+          values: stats,
           moreRecords: (request.pageOffset + request.pageSize) < count,
         });
       }
@@ -72,16 +74,16 @@ export class StatStore implements IStatStore {
     }
   }
 
-  async findOne(id: string): Promise<Game> {
+  async findOne(id: string): Promise<Stat> {
     try {
-      const dbGame = await this.store.findOne({
+      const dbStat = await this.store.findOne({
         id,
       });
-      if (dbGame) {
-        return new Game({
-          id: dbGame.id,
-          name: dbGame.name,
-          description: dbGame.description,
+      if (dbStat) {
+        return new Stat({
+          id: dbStat.id,
+          name: dbStat.name,
+          description: dbStat.description,
         });
       } else {
         return null;
@@ -92,16 +94,17 @@ export class StatStore implements IStatStore {
     }
   }
 
-  async create(games: Array<Game>): Promise<StoreSaveResponse<string>> {
+  async create(stats: Array<Stat>): Promise<StoreSaveResponse<string>> {
     try {
-      const dbGames = games.map(_game => {
-        return new DbGame({
+      const dbStats = stats.map(_stat => {
+        return new DbStat({
           id: uuid(),
-          name: _game.name,
-          description: _game.description,
+          value: _stat.value,
+          name: _stat.name,
+          description: _stat.description,
         });
       });
-      const saveResult = await this.store.save(dbGames);
+      const saveResult = await this.store.save(dbStats);
       return new StoreSaveResponse<string>({
         values: saveResult.map(result => result.id),
       });
@@ -110,20 +113,21 @@ export class StatStore implements IStatStore {
     }
   }
 
-  async update(games: Array<Game>): Promise<StoreSaveResponse<string>> {
+  async update(stats: Array<Stat>): Promise<StoreSaveResponse<string>> {
     try {
-      const savedGames = games
-        .filter(async game => {
-          const gameToUpdate = await this.store.findOne({ id: game.id });
-          if (gameToUpdate) {
-            gameToUpdate.name = game.name;
-            gameToUpdate.description = game.description;
-            this.store.save(gameToUpdate);
+      const savedStats = stats
+        .filter(async stat => {
+          const statToUpdate = await this.store.findOne({ id: stat.id });
+          if (statToUpdate) {
+            statToUpdate.value = stat.value;
+            statToUpdate.name = stat.name;
+            statToUpdate.description = stat.description;
+            this.store.save(stat);
             return true;
           }
         });
-      const savedIds = savedGames.map(savedGame => {
-        return savedGame.id;
+      const savedIds = savedStats.map(savedStat => {
+        return savedStat.id;
       });
       return new StoreSaveResponse<string>({
         values: savedIds,
@@ -136,11 +140,11 @@ export class StatStore implements IStatStore {
 
   async delete(ids: Array<string>): Promise<StoreSaveResponse<string>> {
     try {
-      const deletedGameIds = ids
+      const deletedStatIds = ids
         .filter(async id => {
-          const gameToDelete = await this.store.findOne({ id });
-          if (gameToDelete) {
-            this.store.remove(gameToDelete);
+          const statToDelete = await this.store.findOne({ id });
+          if (statToDelete) {
+            this.store.remove(statToDelete);
             return true;
           }
         });
@@ -156,7 +160,7 @@ export class StatStore implements IStatStore {
   // Temp Function
   private logAndThrow(err) {
     const l = console.log;
-    l('GameStore: ' + err);
+    l('StatStore: ' + err);
     throw err;
   }
 }

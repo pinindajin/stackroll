@@ -7,6 +7,7 @@ import {
   IsInstance,
   ArrayNotEmpty,
   ArrayMaxSize,
+  IsInt,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { IModifyEntityResponse } from 'common/interfaces/controller/IModifyEntityResponse.interface';
@@ -16,6 +17,8 @@ export class StatToUpdate {
   @IsDefined()
   @IsUUID('4')
   id: string;
+
+  @IsInt() value: number;
 
   @IsString() name: string;
 

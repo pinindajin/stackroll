@@ -36,7 +36,7 @@ export class CreateStatsRequest {
   @IsInstance(StatToCreate, { each: true })
   @ArrayNotEmpty()
   @ArrayMaxSize(100)
-  stats: Array<StatToCreate>;
+  statsToCreate: Array<StatToCreate>;
 }
 
 export class CreateStatsResponse implements IServiceModifyEntityResponse {
