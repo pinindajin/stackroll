@@ -43,7 +43,7 @@ export class GameService implements IGameService {
   }
 
   async create(request: CreateGamesRequest): Promise<ServiceModifyResponse> {
-    const gamesToCreate = request.GamesToCreate.map(_game => {
+    const gamesToCreate = request.gamesToCreate.map(_game => {
       return new Game({
         name: _game.name,
         description: _game.description,

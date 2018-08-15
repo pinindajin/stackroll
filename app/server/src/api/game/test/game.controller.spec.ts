@@ -11,6 +11,7 @@ import {
   UpdateGamesResponse,
   DeleteGamesRequest,
   GetGameResponse,
+  GameToCreate,
 } from '../models/dtos';
 import { Game } from '../models/domain';
 import { GameStore } from '../stores/game.store';
@@ -18,6 +19,9 @@ import { IGameService } from '../interfaces/IGameService.interface';
 import { ServiceFindResponse } from '../../../common/models/serviceFindResponse.model';
 import { DeleteGamesResponse } from '../models/dtos/deleteGameDto.dto';
 import { MockGameService, getMockGames } from './gameTestUtils';
+import { Hyperlink } from '../../../common/models/hyperlink.model';
+import { HTTPVERB } from '../../../common/models/httpVerb.type';
+import { ServiceModifyResponse } from '../../../common/models/serviceModifyResponse.model';
 
 const l = console.log;
 
@@ -165,7 +169,7 @@ describe('GameController', () => {
     ];
 
     each(testCases).it(
-      'should page correctly',
+      'should return correct records',
       async (
         id: string,
         mockResponse: Game,
@@ -178,6 +182,97 @@ describe('GameController', () => {
 
         // act
         const result = await gameController.findOne(id);
+
+        // assert
+        expect(result).toEqual(expected);
+      },
+    );
+  });
+
+  describe('create', async () => {
+    const testCases = [
+      [
+        new CreateGamesRequest({
+          gamesToCreate: [
+            new GameToCreate({
+              name: 'FIRST GAME TO CREATE',
+              description: 'firstman',
+            }),
+            new GameToCreate({
+              name: 'some other game',
+              description: 'things',
+            }),
+            new GameToCreate({
+              name: 'testing testy 3rd',
+              description: '3333333',
+            }),
+          ],
+        }),
+        new ServiceModifyResponse({
+          ids: [
+            '1d967746-1134-4e91-a132-abb0df58df7b',
+            '236850f9-e404-4117-b2c3-5a0f2d60256a',
+            '69d39b9c-07a7-4a6e-8e08-41b57b880359',
+          ],
+        }),
+        new CreateGamesResponse({
+          ids: [
+            '1d967746-1134-4e91-a132-abb0df58df7b',
+            '236850f9-e404-4117-b2c3-5a0f2d60256a',
+            '69d39b9c-07a7-4a6e-8e08-41b57b880359',
+          ],
+          links: [
+            new Hyperlink({
+              href: 'NEED TO FIGURE OUT',
+              rel: 'self',
+              type: HTTPVERB.POST,
+            }),
+          ],
+        }),
+      ],
+      [
+        new CreateGamesRequest({
+          gamesToCreate: [
+            new GameToCreate({
+              name: 'SINGLE game to CREATE',
+              description: 'only1',
+            }),
+          ],
+        }),
+        new ServiceModifyResponse({
+          ids: [
+            'e94a0494-c649-4e37-a5eb-879d9923e183',
+          ],
+        }),
+        new CreateGamesResponse({
+          ids: [
+            'e94a0494-c649-4e37-a5eb-879d9923e183',
+          ],
+          links: [
+            new Hyperlink({
+              href: 'NEED TO FIGURE OUT',
+              rel: 'self',
+              type: HTTPVERB.POST,
+            }),
+          ],
+        }),
+      ],
+    ];
+
+    each(testCases).it(
+      'should create records',
+      async (
+        request: CreateGamesRequest,
+        mockResponse: ServiceModifyResponse,
+        expected: CreateGamesResponse,
+      ) => {
+        // arrange
+        jest
+          .spyOn(mockGameService, 'create')
+          .mockImplementation(() => mockResponse);
+
+        // act
+        const result = await gameController.create(request);
 
         // assert
         expect(result).toEqual(expected);

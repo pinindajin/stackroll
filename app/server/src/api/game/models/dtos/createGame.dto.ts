@@ -33,7 +33,7 @@ export class CreateGamesRequest {
   @IsInstance(GameToCreate, { each: true })
   @ArrayNotEmpty()
   @ArrayMaxSize(100)
-  GamesToCreate: Array<GameToCreate>;
+  gamesToCreate: Array<GameToCreate>;
 
   constructor(config?: Partial<CreateGamesRequest>) {
     Object.assign(this, config);
