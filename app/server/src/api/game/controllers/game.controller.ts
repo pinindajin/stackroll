@@ -9,7 +9,6 @@ import {
   ValidationPipe,
   Inject,
   Put,
-  HttpCode,
 } from '@nestjs/common';
 import {
   GetGamesRequest,
@@ -24,8 +23,6 @@ import { ValidateUUIDPipe } from 'common/pipes/validate-uuid.pipe';
 import { IGameService } from '../interfaces';
 import { GetGameResponse } from '../models/dtos/getGame.dto';
 import { CreateGamesResponse } from '../models/dtos/createGame.dto';
-import { IServiceModifyEntityResponse } from 'common/interfaces/service/IServiceModifyEntityResponse.interface';
-import { Game } from '../models/domain/game.model';
 import { Hyperlink } from 'common/models/hyperlink.model';
 import { HTTPVERB } from 'common/models/httpVerb.type';
 import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
