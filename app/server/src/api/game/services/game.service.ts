@@ -56,7 +56,7 @@ export class GameService implements IGameService {
   }
 
   async update(request: UpdateGamesRequest): Promise<ServiceModifyResponse> {
-    const gamesToUpdate = request.GamesToUpdate.map(_game => {
+    const gamesToUpdate = request.gamesToUpdate.map(_game => {
       return new Game({
         id: _game.id,
         name: _game.name,
