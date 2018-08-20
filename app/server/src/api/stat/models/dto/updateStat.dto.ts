@@ -39,7 +39,7 @@ export class UpdateStatsRequest {
   @ArrayMaxSize(100)
   statsToUpdate: Array<StatToUpdate>;
 
-  constructor(config?: Partial<StatToUpdate>) {
+  constructor(config?: Partial<UpdateStatsRequest>) {
     Object.assign(this, config);
   }
 }

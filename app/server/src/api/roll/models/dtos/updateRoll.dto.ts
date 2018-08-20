@@ -34,9 +34,9 @@ export class UpdateRollsRequest {
   @IsInstance(RollToUpdate, { each: true })
   @ArrayNotEmpty()
   @ArrayMaxSize(100)
-  RollsToUpdate: Array<RollToUpdate>;
+  rollsToUpdate: Array<RollToUpdate>;
 
-  constructor(config?: Partial<RollToUpdate>) {
+  constructor(config?: Partial<UpdateRollsRequest>) {
     Object.assign(this, config);
   }
 }

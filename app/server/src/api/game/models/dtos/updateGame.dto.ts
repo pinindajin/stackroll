@@ -36,7 +36,7 @@ export class UpdateGamesRequest {
   @ArrayMaxSize(100)
   gamesToUpdate: Array<GameToUpdate>;
 
-  constructor(config?: Partial<GameToUpdate>) {
+  constructor(config?: Partial<UpdateGamesRequest>) {
     Object.assign(this, config);
   }
 }

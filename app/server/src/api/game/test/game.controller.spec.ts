@@ -279,4 +279,35 @@ describe('GameController', () => {
       },
     );
   });
+
+  describe('update', async () => {
+    const testCases = [
+      [
+        new UpdateGamesRequest({
+          gamesToUpdate: [],
+        }),
+        new ServiceModifyResponse({}),
+        new UpdateGamesResponse({}),
+      ],
+    ];
+
+    each(testCases).it(
+      'should update records',
+      async (
+        request: UpdateGamesRequest,
+        mockResponse: ServiceModifyResponse,
+        expected: UpdateGamesResponse,
+      ) => {
+        // arrange
+        jest
+        .spyOn(mockGameService, 'update')
+        .mockImplementation(() => mockResponse);
+
+        // act
+        const result = await gameController.update(request);
+
+        // assert
+        expect(result).toEqual(expected);
+    });
+  });
 });
