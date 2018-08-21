@@ -50,7 +50,7 @@ export class RollService implements IRollService {
   }
 
   async update(request: UpdateRollsRequest): Promise<ServiceModifyResponse> {
-    const rollsToUpdate = request.RollsToUpdate.map(_roll => {
+    const rollsToUpdate = request.rollsToUpdate.map(_roll => {
       return new Roll({
         id: _roll.id,
         name: _roll.name,

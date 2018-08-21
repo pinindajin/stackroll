@@ -5,7 +5,7 @@ export class DefaultLogger implements LoggerService {
     process.stdout.write(`\n@Info: ${message}`);
   }
   error(message: string, trace: string) {
-    process.stdout.write(`\n@Error: ${message}`);
+    process.stdout.write(`\n@Error: ${message} \n Trace... ${trace}`);
   }
   warn(message: string) {
     process.stdout.write(`\n@Warn: ${message}`);

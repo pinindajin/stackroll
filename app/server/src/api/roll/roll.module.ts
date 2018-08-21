@@ -12,7 +12,7 @@ const rollServiceProvider: Provider = {
 };
 
 const rollStoreProvider: Provider = {
-  provide: 'RollStore',
+  provide: 'RollRepository',
   useClass: RollStore,
 };
 

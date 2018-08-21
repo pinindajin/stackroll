@@ -1,4 +1,4 @@
-import { IGameStore } from './IGameStore.interface';
-import { IGameService } from './IGameService.interface';
+import { IStatService } from './IStatService.interface';
+import { IStatStore } from './IStatStore.interface';
 
-export { IGameStore, IGameService };
+export { IStatService, IStatStore };
