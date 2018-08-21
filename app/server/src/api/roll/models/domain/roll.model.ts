@@ -8,6 +8,8 @@ export class Roll {
 
   description: string;
 
+  value: string;
+
   constructor(config?: Partial<Roll>) {
     Object.assign(this, config);
   }

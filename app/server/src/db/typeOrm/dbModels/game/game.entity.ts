@@ -11,7 +11,7 @@ export class DbGame {
 
   @Column() name: string;
 
-  @Column() description: string;
+  @Column({ nullable: true }) description: string;
 
   constructor(config?: Partial<DbGame>) {
     Object.assign(this, config);

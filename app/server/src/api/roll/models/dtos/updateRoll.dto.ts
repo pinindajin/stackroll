@@ -21,6 +21,8 @@ export class RollToUpdate {
 
   @IsString() description: string;
 
+  @IsString() value: string;
+
   constructor(config?: Partial<RollToUpdate>) {
     Object.assign(this, config);
   }

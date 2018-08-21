@@ -99,6 +99,7 @@ export class RollStore implements IRollStore {
           id: uuid(),
           name: _roll.name,
           description: _roll.description,
+          value: _roll.value,
         });
       });
       const saveResult = await this.store.save(dbRolls);

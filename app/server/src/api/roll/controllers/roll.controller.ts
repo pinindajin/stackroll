@@ -1,6 +1,6 @@
 import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
-import { Controller, Inject, Query, ValidationPipe, Get, Body } from '@nestjs/common';
-import { AppConfigService } from 'config.service';
+import { Controller, Inject, Query, ValidationPipe, Get, Body, Post } from '@nestjs/common';
+import { AppConfigService, APPCONFIGKEYS } from 'config.service';
 import { RollService } from '../services/roll.service';
 import { GetRollsResponse, GetRollsRequest } from '../models/dtos/getRoll.dto';
 import { Roll } from '../models/domain/roll.model';
@@ -8,6 +8,8 @@ import { ValidateUUIDPipe } from 'common/pipes/validate-uuid.pipe';
 import { DeleteRollsRequest, DeleteRollsResponse } from '../models/dtos/deleteRoll.dto';
 import { CreateRollsRequest, CreateRollsResponse } from '../models/dtos/createRoll.dto';
 import { UpdateRollsRequest, UpdateRollsResponse } from '../models/dtos/updateRoll.dto';
+import { Hyperlink } from 'common/models/hyperlink.model';
+import { HTTPVERB } from 'common/models/httpVerb.type';
 
 @Controller('api/roll')
 export class RollController implements ICRUDController {
@@ -32,11 +34,22 @@ export class RollController implements ICRUDController {
     return new Roll();
   }
 
+  @Post()
   async create(
     @Body(new ValidationPipe({ transform: true, skipMissingProperties: true }))
     request: CreateRollsRequest,
   ): Promise<CreateRollsResponse> {
-    return new CreateRollsResponse();
+    const result = await this.service.create(request);
+    return new CreateRollsResponse({
+      ids: result.ids,
+      links: [
+        new Hyperlink({
+          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.ROLL_ENDPOINT)}`,
+          rel: `self`,
+          type: HTTPVERB.GET,
+        }),
+      ],
+    });
   }
 
   async update(

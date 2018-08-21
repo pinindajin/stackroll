@@ -1,4 +1,4 @@
-import { IsDefined, IsString, ValidateNested, IsArray, IsInstance, ArrayNotEmpty, ArrayMaxSize } from 'class-validator';
+import { IsDefined, IsString, ValidateNested, IsArray, IsInstance, ArrayNotEmpty, ArrayMaxSize, IsInt } from 'class-validator';
 import { Hyperlink } from 'common/models/hyperlink.model';
 import { Type } from 'class-transformer';
 export class RollToCreate {
@@ -8,6 +8,10 @@ export class RollToCreate {
 
   @IsString()
   description: string;
+
+  @IsDefined()
+  @IsString()
+  value: string;
 
   constructor(config?: Partial<RollToCreate>) {
     Object.assign(this, config);
@@ -22,7 +26,7 @@ export class CreateRollsRequest {
   @IsInstance(RollToCreate, { each: true })
   @ArrayNotEmpty()
   @ArrayMaxSize(100)
-  RollsToCreate: Array<RollToCreate>;
+  rollsToCreate: Array<RollToCreate>;
 
   constructor(config?: Partial<CreateRollsRequest>) {
     Object.assign(this, config);
@@ -30,7 +34,7 @@ export class CreateRollsRequest {
 }
 
 export class CreateRollsResponse {
-  ids: Array<number>;
+  ids: Array<string>;
 
   links: Array<Hyperlink>;
 

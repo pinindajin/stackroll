@@ -11,7 +11,9 @@ export class DbRoll {
 
   @Column() name: string;
 
-  @Column() description: string;
+  @Column({ nullable: true }) description: string;
+
+  @Column() value: string;
 
   constructor(config?: Partial<DbRoll>) {
     Object.assign(this, config);

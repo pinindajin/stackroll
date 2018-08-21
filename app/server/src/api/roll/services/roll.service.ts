@@ -37,10 +37,11 @@ export class RollService implements IRollService {
   }
 
   async create(request: CreateRollsRequest): Promise<ServiceModifyResponse> {
-    const rollsToCreate = request.RollsToCreate.map(_roll => {
+    const rollsToCreate = request.rollsToCreate.map(_roll => {
       return new Roll({
         name: _roll.name,
         description: _roll.description,
+        value: _roll.value,
       });
     });
     const saveResponse = await this.repo.create(rollsToCreate);
