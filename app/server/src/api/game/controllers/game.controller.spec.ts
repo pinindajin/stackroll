@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { GameController } from '../controllers/game.controller';
+import { GameController } from './game.controller';
 import 'jest';
 import each from 'jest-each';
 import {
@@ -14,14 +14,15 @@ import {
   GameToCreate,
 } from '../models/dtos';
 import { Game } from '../models/domain';
-import { GameStore } from '../stores/game.store';
-import { IGameService } from '../interfaces/IGameService.interface';
 import { ServiceFindResponse } from '../../../common/models/serviceFindResponse.model';
 import { DeleteGamesResponse } from '../models/dtos/deleteGameDto.dto';
-import { MockGameService, getMockGames } from './gameTestUtils';
+import { MockGameService, getMockGames } from '../test/gameTestUtils';
 import { Hyperlink } from '../../../common/models/hyperlink.model';
 import { HTTPVERB } from '../../../common/models/httpVerb.type';
 import { ServiceModifyResponse } from '../../../common/models/serviceModifyResponse.model';
+import * as dotenv from 'dotenv';
+import { AppConfigService } from '../../../config.service';
+dotenv.config();
 
 const l = console.log;
 
@@ -29,6 +30,9 @@ describe('GameController', () => {
   let gameController: GameController;
   let mockGameService: MockGameService;
   const mockGames = getMockGames();
+  const appDomain = process.env.APP_DOMAIN;
+  const appPort = process.env.APP_PORT;
+  const gameEndpoint = process.env.GAME_ENDPOINT;
 
   beforeAll(async () => {
     const mockGameServiceProvider = {
@@ -36,9 +40,14 @@ describe('GameController', () => {
       useClass: MockGameService,
     };
 
+    const configServiceProvider = {
+      provide: 'AppConfigService',
+      useClass: AppConfigService,
+    };
+
     const app = await Test.createTestingModule({
       controllers: [GameController],
-      providers: [mockGameServiceProvider],
+      providers: [mockGameServiceProvider, configServiceProvider],
     }).compile();
 
     gameController = app.get<GameController>(GameController);
@@ -223,9 +232,9 @@ describe('GameController', () => {
           ],
           links: [
             new Hyperlink({
-              href: 'NEED TO FIGURE OUT',
+              href: `${appDomain}:${appPort}/api/${gameEndpoint}`,
               rel: 'self',
-              type: HTTPVERB.POST,
+              type: HTTPVERB.GET,
             }),
           ],
         }),
@@ -250,9 +259,9 @@ describe('GameController', () => {
           ],
           links: [
             new Hyperlink({
-              href: 'NEED TO FIGURE OUT',
+              href: `${appDomain}:${appPort}/api/${gameEndpoint}`,
               rel: 'self',
-              type: HTTPVERB.POST,
+              type: HTTPVERB.GET,
             }),
           ],
         }),
@@ -280,7 +289,7 @@ describe('GameController', () => {
     );
   });
 
-  describe('update', async () => {
+  xdescribe('update', async () => {
     const testCases = [
       [
         new UpdateGamesRequest({

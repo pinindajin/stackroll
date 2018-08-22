@@ -19,19 +19,19 @@ import {
   UpdateGamesResponse,
   DeleteGamesResponse,
 } from '../models/dtos';
-import { ValidateUUIDPipe } from 'common/pipes/validate-uuid.pipe';
+import { ValidateUUIDPipe } from '../../../common/pipes/validate-uuid.pipe';
 import { IGameService } from '../interfaces';
 import { GetGameResponse } from '../models/dtos/getGame.dto';
 import { CreateGamesResponse } from '../models/dtos/createGame.dto';
-import { Hyperlink } from 'common/models/hyperlink.model';
-import { HTTPVERB } from 'common/models/httpVerb.type';
-import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
-import { AppConfigService, APPCONFIGKEYS } from 'config.service';
+import { Hyperlink } from '../../../common/models/hyperlink.model';
+import { HTTPVERB } from '../../../common/models/httpVerb.type';
+import { ICRUDController } from '../../../common/interfaces/controller/ICrudController.interface';
+import { AppConfigService, APPCONFIGKEYS } from '../../../config.service';
 
 // dev
 const x = console.log;
 
-@Controller('api/game')
+@Controller(`api/game`)
 export class GameController implements ICRUDController {
   constructor(
     @Inject('GameService') private readonly service: IGameService,

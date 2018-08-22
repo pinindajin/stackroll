@@ -1,14 +1,14 @@
 import { Game } from '../models/domain/game.model';
 import { IGameService } from '../interfaces/IGameService.interface';
-import { ServiceFindResponse } from 'common/models/serviceFindResponse.model';
+import { ServiceFindResponse } from '../../../common/models/serviceFindResponse.model';
 import { GetGamesRequest } from '../models/dtos/getGame.dto';
 import { CreateGamesRequest, CreateGamesResponse } from '../models/dtos/createGame.dto';
 import { UpdateGamesRequest, DeleteGamesRequest } from '../models/dtos';
 import { UpdateGamesResponse } from '../models/dtos/updateGame.dto';
 import { DeleteGamesResponse } from '../models/dtos/deleteGameDto.dto';
 import { IGameStore } from '../interfaces';
-import { IStoreFindRequest, IStoreFindResponse, IStoreSaveResponse } from 'common/interfaces/store';
-import { StoreFindResponse } from 'common/models/storeFindResponse.model';
+import { IStoreFindRequest, IStoreFindResponse, IStoreSaveResponse } from '../../../common/interfaces/store';
+import { StoreFindResponse } from '../../../common/models/storeFindResponse.model';
 import { StoreSaveResponse } from '../../../common/models/storeSaveResponse.model';
 
 export class MockGameStore implements IGameStore {
