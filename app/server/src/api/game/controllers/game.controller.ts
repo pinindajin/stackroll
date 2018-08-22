@@ -26,12 +26,12 @@ import { CreateGamesResponse } from '../models/dtos/createGame.dto';
 import { Hyperlink } from '../../../common/models/hyperlink.model';
 import { HTTPVERB } from '../../../common/models/httpVerb.type';
 import { ICRUDController } from '../../../common/interfaces/controller/ICrudController.interface';
-import { AppConfigService, APPCONFIGKEYS } from '../../../config.service';
+import { AppConfigService, APPCONFIGKEYS, APP_CONFIG } from '../../../config.service';
 
 // dev
 const x = console.log;
 
-@Controller(`api/game`)
+@Controller(`api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.GAME_ENDPOINT)}`)
 export class GameController implements ICRUDController {
   constructor(
     @Inject('GameService') private readonly service: IGameService,
