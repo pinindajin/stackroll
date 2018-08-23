@@ -22,7 +22,7 @@ import { Hyperlink } from '../../../common/models/hyperlink.model';
 import { HTTPVERB } from '../../../common/models/httpVerb.type';
 import { ServiceModifyResponse } from '../../../common/models/serviceModifyResponse.model';
 import * as dotenv from 'dotenv';
-import { AppConfigService } from '../../../config.service';
+import { AppConfigService } from '../../../config/appConfig.service';
 dotenv.config();
 
 const l = console.log;
@@ -41,14 +41,9 @@ describe('GameController', () => {
       useClass: MockGameService,
     };
 
-    const configServiceProvider = {
-      provide: 'AppConfigService',
-      useClass: AppConfigService,
-    };
-
     const app = await Test.createTestingModule({
       controllers: [GameController],
-      providers: [mockGameServiceProvider, configServiceProvider],
+      providers: [mockGameServiceProvider],
     }).compile();
 
     gameController = app.get<GameController>(GameController);

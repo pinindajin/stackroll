@@ -17,7 +17,7 @@ import { IServiceModifyEntityResponse } from 'common/interfaces/service/IService
 import { Hyperlink } from 'common/models/hyperlink.model';
 import { HTTPVERB } from 'common/models/httpVerb.type';
 import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
-import { APPCONFIGKEYS, APP_CONFIG } from 'config.service';
+import { APPCONFIGKEYS, APP_CONFIG } from 'config/appConfig.config';
 import { GetStatsRequest, GetStatsResponse, GetStatResponse } from '../models/dto';
 import { CreateStatsRequest, CreateStatsResponse } from '../models/dto/createStat.dto';
 import { UpdateStatsRequest, UpdateStatsResponse } from '../models/dto/updateStat.dto';

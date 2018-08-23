@@ -1,6 +1,6 @@
 import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
 import { Controller, Inject, Query, ValidationPipe, Get, Body, Post } from '@nestjs/common';
-import { AppConfigService, APPCONFIGKEYS, APP_CONFIG } from 'config.service';
+import { APPCONFIGKEYS, APP_CONFIG } from 'config/appConfig.config';
 import { RollService } from '../services/roll.service';
 import { GetRollsResponse, GetRollsRequest } from '../models/dtos/getRoll.dto';
 import { Roll } from '../models/domain/roll.model';

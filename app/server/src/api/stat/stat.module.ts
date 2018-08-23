@@ -2,7 +2,7 @@ import { Module, Provider } from '@nestjs/common';
 import { StatService } from './services/stat.service';
 import { StatStore } from './stores/stat.store';
 import { StatController } from './controllers/stat.controller';
-import { AppConfigModule } from 'config.module';
+import { AppConfigModule } from 'config/appConfig.module';
 import { TypeOrmModule } from '../../../node_modules/@nestjs/typeorm';
 import { DbStat } from '../../db/typeOrm/dbModels/stat/stat.entity';
 

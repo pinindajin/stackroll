@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppConfigService } from 'config.service';
+import { AppConfigService } from '../config/appConfig.service';
 
 const appConfigServiceProvider = {
   provide: 'AppConfigService',

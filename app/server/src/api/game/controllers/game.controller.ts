@@ -26,7 +26,7 @@ import { CreateGamesResponse } from '../models/dtos/createGame.dto';
 import { Hyperlink } from '../../../common/models/hyperlink.model';
 import { HTTPVERB } from '../../../common/models/httpVerb.type';
 import { ICRUDController } from '../../../common/interfaces/controller/ICrudController.interface';
-import { AppConfigService, APPCONFIGKEYS, APP_CONFIG } from '../../../config.service';
+import { APPCONFIGKEYS, APP_CONFIG } from '../../../config/appConfig.config';
 
 // dev
 const x = console.log;
