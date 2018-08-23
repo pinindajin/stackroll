@@ -1,6 +1,6 @@
 import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
 import { Controller, Inject, Query, ValidationPipe, Get, Body, Post } from '@nestjs/common';
-import { AppConfigService, APPCONFIGKEYS } from 'config.service';
+import { AppConfigService, APPCONFIGKEYS, APP_CONFIG } from 'config.service';
 import { RollService } from '../services/roll.service';
 import { GetRollsResponse, GetRollsRequest } from '../models/dtos/getRoll.dto';
 import { Roll } from '../models/domain/roll.model';
@@ -11,11 +11,10 @@ import { UpdateRollsRequest, UpdateRollsResponse } from '../models/dtos/updateRo
 import { Hyperlink } from 'common/models/hyperlink.model';
 import { HTTPVERB } from 'common/models/httpVerb.type';
 
-@Controller('api/roll')
+@Controller(`api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.ROLL_ENDPOINT)}`)
 export class RollController implements ICRUDController {
   constructor(
     @Inject('RollService') private readonly service: RollService,
-    @Inject('AppConfigService') private readonly config: AppConfigService,
   ) {}
 
   @Get()
@@ -44,7 +43,7 @@ export class RollController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.ROLL_ENDPOINT)}`,
+          href: `${APP_CONFIG.APP_DOMAIN}:${APP_CONFIG.APP_PORT}/api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.ROLL_ENDPOINT)}`,
           rel: `self`,
           type: HTTPVERB.GET,
         }),

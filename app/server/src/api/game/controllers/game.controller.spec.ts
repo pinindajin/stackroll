@@ -12,6 +12,7 @@ import {
   DeleteGamesRequest,
   GetGameResponse,
   GameToCreate,
+  GameToUpdate,
 } from '../models/dtos';
 import { Game } from '../models/domain';
 import { ServiceFindResponse } from '../../../common/models/serviceFindResponse.model';
@@ -289,14 +290,47 @@ describe('GameController', () => {
     );
   });
 
-  xdescribe('update', async () => {
+  describe('update', async () => {
     const testCases = [
       [
         new UpdateGamesRequest({
-          gamesToUpdate: [],
+          gamesToUpdate: [
+            new GameToUpdate({
+              id: 'fc51d387-f4dc-46b1-bf28-3f71907f2686',
+              name: 'NEW NAME',
+            }),
+            new GameToUpdate({
+              id: '892a6aca-b60f-47f5-9599-b32ad315bd7c',
+              description: 'new descript.',
+            }),
+            new GameToUpdate({
+              id: '7ba3015a-524a-4d8e-b585-3247f76a3d01',
+              name: 'newest name',
+              description: 'newesterest description',
+            }),
+          ],
         }),
-        new ServiceModifyResponse({}),
-        new UpdateGamesResponse({}),
+        new ServiceModifyResponse({
+          ids: [
+            'fc51d387-f4dc-46b1-bf28-3f71907f2686',
+            '892a6aca-b60f-47f5-9599-b32ad315bd7c',
+            '7ba3015a-524a-4d8e-b585-3247f76a3d01',
+          ],
+        }),
+        new UpdateGamesResponse({
+          ids: [
+            'fc51d387-f4dc-46b1-bf28-3f71907f2686',
+            '892a6aca-b60f-47f5-9599-b32ad315bd7c',
+            '7ba3015a-524a-4d8e-b585-3247f76a3d01',
+          ],
+          links: [
+            new Hyperlink({
+              href: `${appDomain}:${appPort}/api/${gameEndpoint}`,
+              rel: 'self',
+              type: HTTPVERB.GET,
+            }),
+          ],
+        }),
       ],
     ];
 

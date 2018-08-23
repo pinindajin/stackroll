@@ -35,7 +35,6 @@ const x = console.log;
 export class GameController implements ICRUDController {
   constructor(
     @Inject('GameService') private readonly service: IGameService,
-    @Inject('AppConfigService') private readonly config: AppConfigService,
   ) {}
 
   @Get()
@@ -83,7 +82,7 @@ export class GameController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
+          href: `${APP_CONFIG.APP_DOMAIN}:${APP_CONFIG.APP_PORT}/api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
           rel: `self`,
           type: HTTPVERB.GET,
         }),
@@ -101,9 +100,9 @@ export class GameController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
+          href: `${APP_CONFIG.APP_DOMAIN}:${APP_CONFIG.APP_PORT}/api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
           rel: `self`,
-          type: HTTPVERB.PUT,
+          type: HTTPVERB.GET,
         }),
       ],
     });
@@ -119,9 +118,9 @@ export class GameController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
+          href: `${APP_CONFIG.APP_DOMAIN}:${APP_CONFIG.APP_PORT}/api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.GAME_ENDPOINT)}`,
           rel: `self`,
-          type: HTTPVERB.DELETE,
+          type: HTTPVERB.GET,
         }),
       ],
     });

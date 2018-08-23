@@ -17,7 +17,7 @@ import { IServiceModifyEntityResponse } from 'common/interfaces/service/IService
 import { Hyperlink } from 'common/models/hyperlink.model';
 import { HTTPVERB } from 'common/models/httpVerb.type';
 import { ICRUDController } from 'common/interfaces/controller/ICrudController.interface';
-import { AppConfigService, APPCONFIGKEYS } from 'config.service';
+import { APPCONFIGKEYS, APP_CONFIG } from 'config.service';
 import { GetStatsRequest, GetStatsResponse, GetStatResponse } from '../models/dto';
 import { CreateStatsRequest, CreateStatsResponse } from '../models/dto/createStat.dto';
 import { UpdateStatsRequest, UpdateStatsResponse } from '../models/dto/updateStat.dto';
@@ -27,11 +27,10 @@ import { IStatService } from '../interfaces/IStatService.interface';
 // dev
 const x = console.log;
 
-@Controller('api/stat')
+@Controller(`api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.STAT_ENDPOINT)}`)
 export class StatController implements ICRUDController {
   constructor(
     @Inject('StatService') private readonly service: IStatService,
-    @Inject('AppConfigService') private readonly config: AppConfigService,
   ) {}
 
   @Get()
@@ -79,7 +78,7 @@ export class StatController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.STAT_ENDPOINT)}`,
+          href: `${APP_CONFIG.APP_DOMAIN}:${APP_CONFIG.APP_PORT}/api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.STAT_ENDPOINT)}`,
           rel: `self`,
           type: HTTPVERB.GET,
         }),
@@ -97,9 +96,9 @@ export class StatController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.STAT_ENDPOINT)}`,
+          href: `${APP_CONFIG.APP_DOMAIN}:${APP_CONFIG.APP_PORT}/api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.STAT_ENDPOINT)}`,
           rel: `self`,
-          type: HTTPVERB.PUT,
+          type: HTTPVERB.GET,
         }),
       ],
     });
@@ -115,9 +114,9 @@ export class StatController implements ICRUDController {
       ids: result.ids,
       links: [
         new Hyperlink({
-          href: `${this.config.appDomain}:${this.config.appPort}/api/${this.config.controllerConfigs.get(APPCONFIGKEYS.STAT_ENDPOINT)}`,
+          href: `${APP_CONFIG.APP_DOMAIN}:${APP_CONFIG.APP_PORT}/api/${APP_CONFIG.CONTROLLER_CONFIGS.get(APPCONFIGKEYS.STAT_ENDPOINT)}`,
           rel: `self`,
-          type: HTTPVERB.DELETE,
+          type: HTTPVERB.GET,
         }),
       ],
     });

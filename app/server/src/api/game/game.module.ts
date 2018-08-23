@@ -4,7 +4,6 @@ import { GameService } from './services/game.service';
 import { GameStore } from './stores/game.store';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DbGame } from 'db/typeOrm/dbModels/game/game.entity';
-import { AppConfigModule } from 'config.module';
 
 const gameServiceProvider: Provider = {
   provide: 'GameService',
@@ -19,7 +18,7 @@ const gameStoreProvider: Provider = {
 const dbEntityImports = [DbGame];
 
 @Module({
-  imports: [TypeOrmModule.forFeature(dbEntityImports), AppConfigModule],
+  imports: [TypeOrmModule.forFeature(dbEntityImports)],
   controllers: [GameController],
   providers: [gameServiceProvider, gameStoreProvider],
 })

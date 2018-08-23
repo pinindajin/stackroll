@@ -10,19 +10,15 @@ export const APPCONFIGKEYS = {
   STAT_ENDPOINT: 'STAT_ENDPOINT' as appConfigKeys,
 };
 
+/*
+  TODO: Use the class (to be DI'd through the config module) for managing providers -
+    - we can put business logic in here to determine how to configure providers -
+    - given certain env vars.
+*/
 @Injectable()
 export class AppConfigService {
-  appDomain: string;
-  appPort: string;
-  controllerConfigs: Map<string, string>;
-
   constructor() {
-    this.appDomain = process.env.APP_DOMAIN;
-    this.appPort = process.env.APP_PORT;
-    this.controllerConfigs = new Map<string, string>();
-    this.controllerConfigs.set(APPCONFIGKEYS.GAME_ENDPOINT, process.env.GAME_ENDPOINT);
-    this.controllerConfigs.set(APPCONFIGKEYS.ROLL_ENDPOINT, process.env.ROLL_ENDPOINT);
-    this.controllerConfigs.set(APPCONFIGKEYS.STAT_ENDPOINT, process.env.STAT_ENDPOINT);
+
   }
 }
 
