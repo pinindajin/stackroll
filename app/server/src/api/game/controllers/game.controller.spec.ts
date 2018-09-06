@@ -175,11 +175,7 @@ describe('GameController', () => {
 
     each(testCases).it(
       'should return correct records',
-      async (
-        id: string,
-        mockResponse: Game,
-        expected: GetGameResponse,
-      ) => {
+      async (id: string, mockResponse: Game, expected: GetGameResponse) => {
         // arrange
         jest
           .spyOn(mockGameService, 'findOne')
@@ -245,14 +241,10 @@ describe('GameController', () => {
           ],
         }),
         new ServiceModifyResponse({
-          ids: [
-            'e94a0494-c649-4e37-a5eb-879d9923e183',
-          ],
+          ids: ['e94a0494-c649-4e37-a5eb-879d9923e183'],
         }),
         new CreateGamesResponse({
-          ids: [
-            'e94a0494-c649-4e37-a5eb-879d9923e183',
-          ],
+          ids: ['e94a0494-c649-4e37-a5eb-879d9923e183'],
           links: [
             new Hyperlink({
               href: `${appDomain}:${appPort}/api/${gameEndpoint}`,
@@ -338,14 +330,70 @@ describe('GameController', () => {
       ) => {
         // arrange
         jest
-        .spyOn(mockGameService, 'update')
-        .mockImplementation(() => mockResponse);
+          .spyOn(mockGameService, 'update')
+          .mockImplementation(() => mockResponse);
 
         // act
         const result = await gameController.update(request);
 
         // assert
         expect(result).toEqual(expected);
-    });
+      },
+    );
+  });
+
+  describe('delete', async () => {
+    const testCases = [
+      [
+        new DeleteGamesRequest({
+          ids: [
+            '6026ee82-c6a9-4480-98e9-15d39781c127',
+            'c6355702-07cc-4bae-9ece-552f6ffd6860',
+            '1c6e0085-a78c-47e6-8cc3-bc96bcf8193e',
+          ],
+        }),
+        new ServiceModifyResponse({
+          ids: [
+            '6026ee82-c6a9-4480-98e9-15d39781c127',
+            'c6355702-07cc-4bae-9ece-552f6ffd6860',
+            '1c6e0085-a78c-47e6-8cc3-bc96bcf8193e',
+          ],
+        }),
+        new DeleteGamesResponse({
+          ids: [
+            '6026ee82-c6a9-4480-98e9-15d39781c127',
+            'c6355702-07cc-4bae-9ece-552f6ffd6860',
+            '1c6e0085-a78c-47e6-8cc3-bc96bcf8193e',
+          ],
+          links: [
+            new Hyperlink({
+              href: `${appDomain}:${appPort}/api/${gameEndpoint}`,
+              rel: 'self',
+              type: HTTPVERB.GET,
+            }),
+          ],
+        }),
+      ],
+    ];
+
+    each(testCases).it(
+      'should delete correct records',
+      async (
+        request: DeleteGamesRequest,
+        mockResponse: ServiceModifyResponse,
+        expected: DeleteGamesResponse,
+      ) => {
+        // arrange
+        jest
+          .spyOn(mockGameService, 'delete')
+          .mockImplementation(() => mockResponse);
+
+        // act
+        const result = await gameController.delete(request);
+
+        // assert
+        expect(result).toEqual(expected);
+      },
+    );
   });
 });
