@@ -34,9 +34,9 @@ export class GameStore implements IGameStore {
             description: dbGame.description,
           });
         });
-        const fethcedIds = games.map(game => game.id);
+        const fetchedIds = games.map(game => game.id);
         const unfetchedIds = request.ids
-          .filter(id => !fethcedIds.includes(id));
+          .filter(id => !fetchedIds.includes(id));
         return new StoreFindResponse<Game>({
           pageNumber: (Math.ceil(request.pageOffset / request.pageSize) + 1),
           pageSize: request.pageSize,

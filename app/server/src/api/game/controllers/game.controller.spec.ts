@@ -98,7 +98,7 @@ describe('GameController', () => {
         new ServiceFindResponse<Game>({
           pageSize: 5,
           pageNumber: 4,
-          values: mockGames.slice(15),
+          values: mockGames.slice(mockGames.length - 1),
           moreRecords: false,
         }),
         new GetGamesResponse({
@@ -106,7 +106,7 @@ describe('GameController', () => {
           pageNumber: 4,
           numberOfRecords: 1,
           nextPageLink: null,
-          games: mockGames.slice(15),
+          games: mockGames.slice(mockGames.length - 1),
         }),
       ],
     ];

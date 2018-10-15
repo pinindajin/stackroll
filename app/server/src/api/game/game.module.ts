@@ -11,7 +11,7 @@ const gameServiceProvider: Provider = {
 };
 
 const gameStoreProvider: Provider = {
-  provide: 'GameRepository',
+  provide: 'GameStore',
   useClass: GameStore,
 };
 
