@@ -19,14 +19,7 @@ export class GameStore implements IGameStore {
   async find(request: StoreFindRequest): Promise<StoreFindResponse<Game>> {
     try {
       if (request.ids && request.ids.length > 0) {
-        const [dbGames, count] = await this.store
-          .createQueryBuilder()
-          .select('game')
-          .from(DbGame, 'game')
-          .where('game.id IN (:...ids)', { ids: request.ids })
-          .skip(request.pageOffset)
-          .take(request.pageSize)
-          .getManyAndCount();
+        const [dbGames, count] = await this.repoFindById(request.ids, request.pageOffset, request.pageSize);
         const games = dbGames.map(dbGame => {
           return new Game({
             id: dbGame.id,
@@ -46,11 +39,7 @@ export class GameStore implements IGameStore {
           moreRecords: (request.pageOffset + request.pageSize) < count,
         });
       } else {
-        const [dbGames, count] = await this.store
-          .createQueryBuilder('game')
-          .skip(request.pageOffset)
-          .take(request.pageSize)
-          .getManyAndCount();
+        const [dbGames, count] = await this.repoFind(request.pageOffset, request.pageSize);
         const games = dbGames.map(dbGame => {
           return new Game({
             id: dbGame.id,
@@ -151,6 +140,25 @@ export class GameStore implements IGameStore {
     catch (err) {
       this.logAndThrow(err);
     }
+  }
+
+  async repoFindById(ids: Array<string>, pageOffset: number, pageSize: number): Promise<[DbGame[], number]> {
+    return await this.store
+      .createQueryBuilder()
+      .select('game')
+      .from(DbGame, 'game')
+      .where('game.id IN (:...ids)', { ids })
+      .skip(pageOffset)
+      .take(pageSize)
+      .getManyAndCount();
+  }
+
+  async repoFind(pageOffset: number, pageSize: number): Promise<[DbGame[], number]> {
+    return await this.store
+      .createQueryBuilder('game')
+      .skip(pageOffset)
+      .take(pageSize)
+      .getManyAndCount();
   }
 
   // Temp Function
