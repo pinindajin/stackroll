@@ -1,12 +1,16 @@
 import { GameService } from './game.service';
-import { MockGameStore, getMockGames } from '../test/gameTestUtils';
+import { MockGameStore } from '../test/gameTestUtils';
+import { getMockGames } from '../test/data/';
 import { Test } from '@nestjs/testing';
 import each from 'jest-each';
 import { StoreFindResponse } from '../../../common/models/storeFindResponse.model';
-import { GetGamesRequest } from '../models/dtos/getGame.dto';
+import { GetGamesRequest, GetGameRequest } from '../models/dtos/getGame.dto';
 import { Game } from '../models/domain/game.model';
 import { ServiceFindResponse } from '../../../common/models/serviceFindResponse.model';
 import 'jest';
+import { CreateGamesRequest, GameToCreate } from '../models/dtos';
+import { ServiceModifyResponse } from '../../../common/models/serviceModifyResponse.model';
+import { StoreSaveResponse } from '../../../common/models/storeSaveResponse.model';
 
 describe('GameService', () => {
   let gameService: GameService;
@@ -75,26 +79,111 @@ describe('GameService', () => {
   });
 
   describe('findOne', async () => {
-    const testCases = [];
+    const testCases = [
+      [
+        new GetGameRequest({
+          id: mockGames[55].id,
+        }),
+        mockGames[55],
+        mockGames[55],
+      ],
+      [
+        new GetGameRequest({
+          id: mockGames[160].id,
+        }),
+        mockGames[160],
+        mockGames[160],
+      ],
+      [
+        new GetGameRequest({
+          id: '11FAKE11-1ID1-4111-1NOT-1REAL1111111',
+        }),
+        null,
+        null,
+      ],
+    ];
 
-    each(testCases).it('should page correctly', async () => {});
+    each(testCases).it('should find correct record', async (
+      request: GetGameRequest,
+      mockResponse: Game,
+      expected: Game,
+    ) => {
+      // arrange
+      jest
+      .spyOn(mockGameStore, 'findOne')
+      .mockImplementation(() => mockResponse);
+
+      // act
+      const result = await gameService.findOne(request.id);
+
+      // assert
+      expect(result).toEqual(expected);
+    });
   });
 
   describe('create', async () => {
-    const testCases = [];
+    const testCases = [
+      [
+        new CreateGamesRequest({
+          gamesToCreate: [
+            new GameToCreate({
+              name: 'Fancy Rolls For Fun',
+              description: 'The fanciest of rolls - for fun of course',
+            }),
+            new GameToCreate({
+              name: 'Sweet Rolls',
+              description: 'Oh So Yum',
+            }),
+            new GameToCreate({
+              name: 'Best Rolls',
+              description: 'Nothing Better',
+            }),
+          ],
+        }),
+        new StoreSaveResponse<string>({
+          values: [
+            '7f5f6ce4-d950-4f30-8d36-5d994c7a37a0',
+            'd7ac7c4a-4fe1-4f7a-9a74-564a3ca9424a',
+            '602c7d61-7d4b-4a21-a312-3de9eda63164',
+          ],
+        }),
+        new ServiceModifyResponse({
+          ids: [
+            '7f5f6ce4-d950-4f30-8d36-5d994c7a37a0',
+            'd7ac7c4a-4fe1-4f7a-9a74-564a3ca9424a',
+            '602c7d61-7d4b-4a21-a312-3de9eda63164',
+          ],
+        }),
+      ],
+    ];
 
-    each(testCases).it('should page correctly', async () => {});
+    each(testCases).it('should create records', async (
+      request: CreateGamesRequest,
+      mockResponse: StoreSaveResponse<string>,
+      expected: ServiceModifyResponse,
+    ) => {
+      // arrange
+      jest
+      .spyOn(mockGameStore, 'create')
+      .mockImplementation(() => mockResponse);
+
+      // act
+      const result = await gameService.create(request);
+
+      // assert
+      expect(result).toEqual(expected);
+    });
   });
 
   describe('update', async () => {
     const testCases = [];
 
-    each(testCases).it('should page correctly', async () => {});
+    each(testCases).it('should update record', async () => {});
   });
 
   describe('delete', async () => {
     const testCases = [];
 
-    each(testCases).it('should page correctly', async () => {});
+    each(testCases).it('should delete record', async () => {});
   });
 });

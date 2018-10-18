@@ -17,7 +17,8 @@ import {
 import { Game } from '../models/domain';
 import { ServiceFindResponse } from '../../../common/models/serviceFindResponse.model';
 import { DeleteGamesResponse } from '../models/dtos/deleteGameDto.dto';
-import { MockGameService, getMockGames } from '../test/gameTestUtils';
+import { MockGameService } from '../test/gameTestUtils';
+import { getMockGames } from '../test/data';
 import { Hyperlink } from '../../../common/models/hyperlink.model';
 import { HTTPVERB } from '../../../common/models/httpVerb.type';
 import { ServiceModifyResponse } from '../../../common/models/serviceModifyResponse.model';
