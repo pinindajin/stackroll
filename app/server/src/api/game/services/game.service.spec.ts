@@ -11,6 +11,11 @@ import 'jest';
 import { CreateGamesRequest, GameToCreate } from '../models/dtos';
 import { ServiceModifyResponse } from '../../../common/models/serviceModifyResponse.model';
 import { StoreSaveResponse } from '../../../common/models/storeSaveResponse.model';
+import {
+  UpdateGamesRequest,
+  GameToUpdate,
+} from '../models/dtos/updateGame.dto';
+import { DeleteGamesRequest } from '../models/dtos/deleteGameDto.dto';
 
 describe('GameService', () => {
   let gameService: GameService;
@@ -60,22 +65,25 @@ describe('GameService', () => {
       ],
     ];
 
-    each(testCases).it('should page correctly', async (
-      request: GetGamesRequest,
-      mockResponse: StoreFindResponse<Game>,
-      expected: ServiceFindResponse<Game>,
-    ) => {
-      // arrange
-      jest
-      .spyOn(mockGameStore, 'find')
-      .mockImplementation(() => mockResponse);
+    each(testCases).it(
+      'should page correctly',
+      async (
+        request: GetGamesRequest,
+        mockResponse: StoreFindResponse<Game>,
+        expected: ServiceFindResponse<Game>,
+      ) => {
+        // arrange
+        jest
+          .spyOn(mockGameStore, 'find')
+          .mockImplementation(() => mockResponse);
 
-      // act
-      const result = await gameService.find(request);
+        // act
+        const result = await gameService.find(request);
 
-      // assert
-      expect(result).toEqual(expected);
-    });
+        // assert
+        expect(result).toEqual(expected);
+      },
+    );
   });
 
   describe('findOne', async () => {
@@ -103,22 +111,21 @@ describe('GameService', () => {
       ],
     ];
 
-    each(testCases).it('should find correct record', async (
-      request: GetGameRequest,
-      mockResponse: Game,
-      expected: Game,
-    ) => {
-      // arrange
-      jest
-      .spyOn(mockGameStore, 'findOne')
-      .mockImplementation(() => mockResponse);
+    each(testCases).it(
+      'should find correct record',
+      async (request: GetGameRequest, mockResponse: Game, expected: Game) => {
+        // arrange
+        jest
+          .spyOn(mockGameStore, 'findOne')
+          .mockImplementation(() => mockResponse);
 
-      // act
-      const result = await gameService.findOne(request.id);
+        // act
+        const result = await gameService.findOne(request.id);
 
-      // assert
-      expect(result).toEqual(expected);
-    });
+        // assert
+        expect(result).toEqual(expected);
+      },
+    );
   });
 
   describe('create', async () => {
@@ -157,33 +164,130 @@ describe('GameService', () => {
       ],
     ];
 
-    each(testCases).it('should create records', async (
-      request: CreateGamesRequest,
-      mockResponse: StoreSaveResponse<string>,
-      expected: ServiceModifyResponse,
-    ) => {
-      // arrange
-      jest
-      .spyOn(mockGameStore, 'create')
-      .mockImplementation(() => mockResponse);
+    each(testCases).it(
+      'should create records',
+      async (
+        request: CreateGamesRequest,
+        mockResponse: StoreSaveResponse<string>,
+        expected: ServiceModifyResponse,
+      ) => {
+        // arrange
+        jest
+          .spyOn(mockGameStore, 'create')
+          .mockImplementation(() => mockResponse);
 
-      // act
-      const result = await gameService.create(request);
+        // act
+        const result = await gameService.create(request);
 
-      // assert
-      expect(result).toEqual(expected);
-    });
+        // assert
+        expect(result).toEqual(expected);
+      },
+    );
   });
 
   describe('update', async () => {
-    const testCases = [];
+    const testCases = [
+      [
+        new UpdateGamesRequest({
+          gamesToUpdate: [
+            new GameToUpdate({
+              id: '32d071cd-6a26-4c53-a00c-6a42d4350574',
+              name: 'NEW NAME',
+              description: 'NEW DESCRIPTION',
+            }),
+            new GameToUpdate({
+              id: 'effeb722-ca9d-42d4-9b26-e2272297ab4e',
+              name: 'NEW NAME',
+            }),
+            new GameToUpdate({
+              id: 'eea9850a-7346-43ae-8333-462b614451dc',
+              description: 'NEW DESCRIPTION',
+            }),
+          ],
+        }),
+        new StoreSaveResponse<string>({
+          values: [
+            '32d071cd-6a26-4c53-a00c-6a42d4350574',
+            'effeb722-ca9d-42d4-9b26-e2272297ab4e',
+            'eea9850a-7346-43ae-8333-462b614451dc',
+          ],
+        }),
+        new ServiceModifyResponse({
+          ids: [
+            '32d071cd-6a26-4c53-a00c-6a42d4350574',
+            'effeb722-ca9d-42d4-9b26-e2272297ab4e',
+            'eea9850a-7346-43ae-8333-462b614451dc',
+          ],
+        }),
+      ],
+    ];
 
-    each(testCases).it('should update record', async () => {});
+    each(testCases).it(
+      'should update records',
+      async (
+        request: UpdateGamesRequest,
+        mockResponse: StoreSaveResponse<string>,
+        expected: ServiceModifyResponse,
+      ) => {
+        // arrange
+        jest
+          .spyOn(mockGameStore, 'update')
+          .mockImplementation(() => mockResponse);
+
+        // act
+        const result = await gameService.update(request);
+
+        // assert
+        expect(result).toEqual(expected);
+      },
+    );
   });
 
   describe('delete', async () => {
-    const testCases = [];
+    const testCases = [
+      [
+        new DeleteGamesRequest({
+          ids: [
+            '7d3502a2-d551-45ec-a2ea-4ab5812bd832',
+            '2701182b-cbe9-418f-84e3-c8a730d55e5b',
+            '295e9316-cc98-4898-8d19-da90de70a475',
+          ],
+        }),
+        new StoreSaveResponse<string>({
+          values: [
+            '7d3502a2-d551-45ec-a2ea-4ab5812bd832',
+            '2701182b-cbe9-418f-84e3-c8a730d55e5b',
+            '295e9316-cc98-4898-8d19-da90de70a475',
+          ],
+        }),
+        new ServiceModifyResponse({
+          ids: [
+            '7d3502a2-d551-45ec-a2ea-4ab5812bd832',
+            '2701182b-cbe9-418f-84e3-c8a730d55e5b',
+            '295e9316-cc98-4898-8d19-da90de70a475',
+          ],
+        }),
+      ],
+    ];
 
-    each(testCases).it('should delete record', async () => {});
+    each(testCases).it(
+      'should delete records',
+      async (
+        request: DeleteGamesRequest,
+        mockResponse: StoreSaveResponse<string>,
+        expected: ServiceModifyResponse,
+      ) => {
+        // arrange
+        jest
+          .spyOn(mockGameStore, 'delete')
+          .mockImplementation(() => mockResponse);
+
+        // act
+        const result = await gameService.delete(request);
+
+        // assert
+        expect(result).toEqual(expected);
+      },
+    );
   });
 });
