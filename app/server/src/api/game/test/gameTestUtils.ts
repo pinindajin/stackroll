@@ -18,10 +18,6 @@ import {
 import { StoreFindResponse } from '../../../common/models/storeFindResponse.model';
 import { StoreSaveResponse } from '../../../common/models/storeSaveResponse.model';
 
-// export class MockRepository {
-
-// }
-
 export class MockGameStore implements IGameStore {
   async find(ids: IStoreFindRequest): Promise<IStoreFindResponse<Game>> {
     return new StoreFindResponse();
