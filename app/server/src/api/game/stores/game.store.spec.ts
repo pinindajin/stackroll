@@ -45,7 +45,23 @@ describe('GameService', () => {
 
   describe('find', async () => {
     const testCases = [
-      [],
+      [
+        new StoreFindRequest({
+          pageOffset: 60,
+          pageSize: 20,
+        }),
+        [
+          mockGames.slice(60, 80),
+          mockGames.length,
+        ],
+        new StoreFindResponse<Game>({
+          pageSize: 20,
+          pageNumber: 4,
+          values: mockGames.slice(60, 80),
+          moreRecords: true,
+          totalRecords: mockGames.length,
+        }),
+      ],
     ];
 
     each(testCases).it(

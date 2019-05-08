@@ -44,7 +44,7 @@ describe('GameService', () => {
       [
         new GetGamesRequest({
           pageSize: 10,
-          pageOffset: 10,
+          pageOffset: 100,
         }),
         new StoreFindResponse<Game>({
           pageSize: 10,
@@ -52,7 +52,7 @@ describe('GameService', () => {
           values: mockGames.slice(100, 110),
           unfetchedIds: [],
           moreRecords: true,
-          totalRecords: 10,
+          totalRecords: mockGames.length,
         }),
         new ServiceFindResponse<Game>({
           pageSize: 10,
@@ -60,7 +60,7 @@ describe('GameService', () => {
           values: mockGames.slice(100, 110),
           unfetchedIds: [],
           moreRecords: true,
-          totalRecords: 10,
+          totalRecords: mockGames.length,
         }),
       ],
     ];
