@@ -1,3 +1,1 @@
-import { Game } from './game.model';
-
-export { Game };
+export * from './game.model';

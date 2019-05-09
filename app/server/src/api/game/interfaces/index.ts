@@ -1,4 +1,2 @@
-import { IGameStore } from './IGameStore.interface';
-import { IGameService } from './IGameService.interface';
-
-export { IGameStore, IGameService };
+export * from './IGameStore.interface';
+export * from './IGameService.interface';

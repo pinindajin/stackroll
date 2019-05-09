@@ -1,14 +1,12 @@
-import { IGameStore } from '../interfaces/IGameStore.interface';
-import { Game } from '../models/domain/game.model';
+import { IGameStore } from '@game/interfaces';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DbGame } from '../../../db/typeOrm/dbModels/game/game.entity';
-import { StoreSaveResponse } from '../../../common/models/storeSaveResponse.model';
-import { StoreFindResponse } from '../../../common/models/storeFindResponse.model';
-import { StoreFindRequest } from '../../../common/models/storeFindRequest.model';
+import { StoreSaveResponse, StoreFindResponse, StoreFindRequest } from '@common/models';
+import { DbGame } from '@db/typeOrm/dbModels/game/game.entity';
 import { Injectable } from '@nestjs/common';
 import { json } from 'body-parser';
 import { v4 as uuid } from 'uuid';
+import { Game } from '@game/models/domain';
 
 @Injectable()
 export class GameStore implements IGameStore {
@@ -144,7 +142,7 @@ export class GameStore implements IGameStore {
 
   async repoFindById(ids: Array<string>, pageOffset: number, pageSize: number): Promise<[DbGame[], number]> {
     return await this.store
-      .createQueryBuilder()
+      .createQueryBuilder('game')
       .select('game')
       .from(DbGame, 'game')
       .where('game.id IN (:...ids)', { ids })

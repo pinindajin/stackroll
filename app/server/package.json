@@ -2,12 +2,13 @@
   "name": "stackroll-server",
   "version": "0.0.0",
   "description": "description",
-  "author": "pinin + shake",
+  "author": "pinindajin",
   "license": "MIT",
   "scripts": {
     "format": "prettier --write \"**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "nodemon",
+    "start:debug": "nodemon --config nodemon-debug.json",
     "prestart:prod": "rm -rf dist && tsc",
     "start:prod": "node dist/main.js",
     "start:hmr": "node dist/server",
@@ -56,6 +57,16 @@
     "webpack-node-externals": "^1.6.0"
   },
   "jest": {
+    "moduleNameMapper": {
+      "@api/(.*)": "<rootDir>/api/$1",
+      "@common/(.*)": "<rootDir>/common/$1",
+      "@config/(.*)": "<rootDir>/config/$1",
+      "@db/(.*)": "<rootDir>/db/$1",
+      "@logging/(.*)": "<rootDir>/logging/$1",
+      "@game/(.*)": "<rootDir>/api/game/$1",
+      "@roll/(.*)": "<rootDir>/api/roll/$1",
+      "@stat/(.*)": "<rootDir>/api/stat/$1"
+    },
     "moduleFileExtensions": [
       "js",
       "json",
@@ -66,6 +77,7 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "coverageDirectory": "../coverage"
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
   }
 }

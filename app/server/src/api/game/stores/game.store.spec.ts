@@ -62,6 +62,25 @@ describe('GameService', () => {
           totalRecords: mockGames.length,
         }),
       ],
+      [
+        new StoreFindRequest({
+          pageOffset: 0,
+          pageSize: 5,
+          ids: mockGames.slice(10, 25).map(g => g.id),
+        }),
+        [
+          mockGames.slice(10, 15),
+          mockGames.slice(10, 25).length,
+        ],
+        new StoreFindResponse<Game>({
+          pageSize: 5,
+          pageNumber: 1,
+          values: mockGames.slice(10, 15),
+          moreRecords: true,
+          unfetchedIds: mockGames.slice(15, 25).map(g => g.id),
+          totalRecords: mockGames.slice(10, 25).length,
+        }),
+      ],
     ];
 
     each(testCases).it(
@@ -74,6 +93,9 @@ describe('GameService', () => {
         // arrange
         jest
           .spyOn(gameStore, 'repoFind')
+          .mockImplementation(() => mockResponse);
+        jest
+          .spyOn(gameStore, 'repoFindById')
           .mockImplementation(() => mockResponse);
 
         // act
